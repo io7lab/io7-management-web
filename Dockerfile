@@ -12,7 +12,8 @@ RUN mkdir -p /home/node/app
 RUN npm init -y
 RUN npm install serve
 COPY build /home/node/app/build
+COPY run.serve.sh /home/node/app
 
 ENV NODE_PATH=/home/node/app/node_modules:/usr/src/node-red/node_modules:/data/node_modules
 
-CMD [ "/home/node/app/./node_modules/.bin/serve", "-s", "build" ]
+CMD [ "/bin/bash", "/home/node/app/run.serve.sh" ]
