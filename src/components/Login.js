@@ -26,6 +26,7 @@ const Login = (props) => {
                 alert('failed to get the MQTT over WebSocket access information');
             }
         }).then((data) => {
+            window.runtime.ws_protocol = window.runtime.ws_protocol || 'wss://';
             window.runtime.mqtt_options = {
                     "username": data.username,
                     "password": data.password,
