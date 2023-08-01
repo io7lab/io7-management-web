@@ -12,38 +12,6 @@ const Login = (props) => {
     const { setToken } = props;
     const cookies = new Cookies();
 
-    function set_window_runtime_variables(email, token) {
-        fetch(rootURL + '/users/wsmqaccess/?user=' + email, 
-        {
-            method: 'get',
-            headers: { "Content-Type": "application/json",
-                    "Authorization": 'Bearer ' + token },
-        })
-        .then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                alert('failed to get the MQTT over WebSocket access information');
-            }
-        }).then((data) => {
-            window.runtime.ws_protocol = window.runtime.ws_protocol || 'wss://';
-            window.runtime.mqtt_options = {
-                    "username": data.username,
-                    "password": data.password,
-                    "clean_session": true,
-                    "tls_insecure": true,
-                    "rejectUnauthorized": false
-            }
-            return;
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
-
     function handleSubmit(event) {
         event.preventDefault();
         fetch(rootURL + '/users/login',
@@ -63,7 +31,6 @@ const Login = (props) => {
                     console.log('login succeeded');
                     cookies.set('token', data.access_token);
                     setToken(data.access_token);
-                    set_window_runtime_variables(event.target.email.value, data.access_token);
                 }
             })
             .catch((err) => {
