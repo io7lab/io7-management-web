@@ -12,14 +12,5 @@ const conn_mgr = {
     }
 }
 
-export const mqtt_options = {
-    "clientId": "io7web",
-    "username": "$web",
-    "password": "",
-    "clean_session": true,
-    "tls_insecure": true,
-    "rejectUnauthorized": false
-}
-
 export let mqttClient = null;
 export default conn_mgr;

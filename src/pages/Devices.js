@@ -16,7 +16,7 @@ import NewDevice from '../components/NewDevice';
 
 import "../style/Devices.css";
 
-import conn_mgr, {mqttClient, mqtt_options} from '../components/mqtt_connection/mqtt_conn';
+import conn_mgr, { mqttClient } from '../components/mqtt_connection/mqtt_conn';
 
 // it assumes the mqtt and the management console web is on the same hosts.
 // if they are on different hosts, the the following two lines should be modified.
@@ -24,6 +24,7 @@ const svr = window.location;
 const rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
 const ws_protocol = window.runtime.ws_protocol || 'ws://';
 const mqtturl = window.runtime.WS_SERVER_URL  || ws_protocol + svr.hostname + ':9001';
+const mqtt_options = window.runtime.mqtt_options;
 let forRefresh = 0;
 
 // Limitation : current version supports only one web console working due to the mqtt connection.

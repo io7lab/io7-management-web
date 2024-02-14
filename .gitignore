@@ -24,3 +24,4 @@ yarn-error.log*
 package-lock.json
 iothub.key
 iothub.crt
+public/runtime-config.js
