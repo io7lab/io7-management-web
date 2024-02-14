@@ -24,6 +24,7 @@ const svr = window.location;
 const rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
 const ws_protocol = window.runtime.ws_protocol || 'ws://';
 const mqtturl = window.runtime.WS_SERVER_URL  || ws_protocol + svr.hostname + ':9001';
+let forRefresh = 0;
 
 // Limitation : current version supports only one web console working due to the mqtt connection.
 
@@ -41,6 +42,8 @@ const Devices = () => {
         mqtt_options.password = mqttws_pw;
         conn_mgr.connect(mqtturl, mqtt_options);
     }
+
+    forRefresh++;
 
     useEffect(() => {
         fetch(rootURL + '/devices',
@@ -70,28 +73,28 @@ const Devices = () => {
     }, [deleted, added]);
 
     useEffect(() => {
-        setTimeout(() => {
-            if (mqttClient) mqttClient.subscribe('iot3/+/evt/connection/fmt/json', {qos:0});
-        }, 300);
-        if (mqttClient) mqttClient.on('message', (topic, message) => {
-            let mObj = JSON.parse(message.toString());
-            if (mObj.d && mObj.d.status) {
-                let devId = topic.split('/')[1];
-                let statusCell = document.getElementById(devId + '-status');
-                if (statusCell) {
-                    if (mObj.d.status === 'online') {
-                        statusCell.innerHTML = 'on';
-                    } else if (mObj.d.status === 'offline') {
-                        statusCell.innerHTML = 'off';
+        if(mqttClient) {
+            mqttClient.subscribe('iot3/+/evt/connection/fmt/json', {qos:0});
+            mqttClient.on('message', (topic, message) => {
+                let mObj = JSON.parse(message.toString());
+                if (mObj.d && mObj.d.status) {
+                    let devId = topic.split('/')[1];
+                    let statusCell = document.getElementById(devId + '-status');
+                    if (statusCell) {
+                        if (mObj.d.status === 'online') {
+                            statusCell.innerHTML = 'on';
+                        } else if (mObj.d.status === 'offline') {
+                            statusCell.innerHTML = 'off';
+                        }
                     }
                 }
-            }
-        });
-
-        return () => {
-            if (mqttClient) mqttClient.unsubscribe('iot3/+/evt/connection/fmt/json');
-        };
-    }, []);
+            });
+    
+            return () => {
+                mqttClient.unsubscribe('iot3/+/evt/connection/fmt/json');
+            };
+        }
+    }, [mqttClient, forRefresh]);
 
     const rows = devices.map((device) => (
         {
