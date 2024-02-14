@@ -7,18 +7,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 const Home = (props) => {
 
     return (
-        <div>
-            <center>
-                <h1>io7 IOT Device Platform</h1>
-                <hr />
-                <p>This is the device management portal of the io7 IOT Device Platform.</p>
-                <hr />
-                <HomeIcon fontSize='large' />
-                <MemoryIcon fontSize='large' />
-                <AppRegistrationIcon fontSize='large' />
-                <SettingsIcon fontSize='large' />
-            </center>
-        </div>
+        <iframe src="/intro.html" frameborder="0" marginheight="0" marginwidth="0" width="1000px" height="100%"></iframe>
     )
 }
 
