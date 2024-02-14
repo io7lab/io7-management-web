@@ -16,16 +16,16 @@ import NewDevice from '../components/NewDevice';
 
 import "../style/Devices.css";
 
-import mqtt from 'mqttws/dist/mqtt';
+import conn_mgr, {mqttClient, mqtt_options} from '../components/mqtt_connection/mqtt_conn';
 
 // it assumes the mqtt and the management console web is on the same hosts.
 // if they are on different hosts, the the following two lines should be modified.
-const ws_protocol = window.runtime.ws_protocol || 'ws://';
-const mqtt_options = window.runtime.mqtt_options;
 const svr = window.location;
-let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
-let mqtturl = window.runtime.WS_SERVER_URL  || ws_protocol + svr.hostname + ':9001';
-let mqttClient = mqtt.connect(mqtturl, mqtt_options);
+const rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
+const ws_protocol = window.runtime.ws_protocol || 'ws://';
+const mqtturl = window.runtime.WS_SERVER_URL  || ws_protocol + svr.hostname + ':9001';
+
+// Limitation : current version supports only one web console working due to the mqtt connection.
 
 const Devices = () => {
     const cookies = new Cookies();
@@ -35,6 +35,12 @@ const Devices = () => {
     const [added, setAdded] = useState(false);
     const [newDev, setNewDev] = useState(false);
     const [chosenDevice, setChosenDevice] = useState(undefined);
+
+    const mqttws_pw = cookies.get('mqttws_pw');
+    if(mqttws_pw) {
+        mqtt_options.password = mqttws_pw;
+        conn_mgr.connect(mqtturl, mqtt_options);
+    }
 
     useEffect(() => {
         fetch(rootURL + '/devices',
@@ -65,9 +71,9 @@ const Devices = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            mqttClient.subscribe('iot3/+/evt/connection/fmt/json', {qos:0});
+            if (mqttClient) mqttClient.subscribe('iot3/+/evt/connection/fmt/json', {qos:0});
         }, 300);
-        mqttClient.on('message', (topic, message) => {
+        if (mqttClient) mqttClient.on('message', (topic, message) => {
             let mObj = JSON.parse(message.toString());
             if (mObj.d && mObj.d.status) {
                 let devId = topic.split('/')[1];
@@ -83,7 +89,7 @@ const Devices = () => {
         });
 
         return () => {
-            mqttClient.unsubscribe('iot3/+/evt/connection/fmt/json');
+            if (mqttClient) mqttClient.unsubscribe('iot3/+/evt/connection/fmt/json');
         };
     }, []);
 

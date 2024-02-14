@@ -26,7 +26,9 @@ class Sidebar extends Component {
 		const logoff = () =>{
 			if (window.confirm('Do you want to logoff?')) {
 				const cookies = new Cookies();
-				setToken(cookies.set('token', ''));
+				cookies.set('token', '');
+				cookies.set('mqttws_pw', '');
+				setToken('');
 				window.location.reload();
 			}
 		}
