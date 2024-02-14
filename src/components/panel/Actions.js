@@ -14,18 +14,15 @@ const Operation = (props) => {
 
     const rebootDevice = (event) => {
         if(window.confirm('Do you really want to reboot the device?')) {
-            fetch(`${rootURL}/devices/reboot/${devId}`,
-            {
+            fetch(`${rootURL}/devices/reboot/${devId}`, {
                 method: 'get',
                 headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token }
-            })
-            .then((response) => {
+            }).then((response) => {
                 if (response.status === 200) {
                     console.log('rebooting');
                 }
-            })
-            .catch((err) => {
+            }).catch((err) => {
                 console.log(err);
             });
         }
@@ -34,22 +31,19 @@ const Operation = (props) => {
     const factoryResetDevice = (event) => {
         if (window.confirm('Do you really want to factory reset the device?')) {
             if (window.confirm('The device will be factory resetted.\nAre you really sure to factory reset the device?')) {
-                fetch(`${rootURL}/devices/reset/${devId}`,
-                    {
-                        method: 'get',
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": 'Bearer ' + token
-                        }
-                    })
-                    .then((response) => {
-                        if (response.status === 200) {
-                            console.log('factory resetting the device');
-                        }
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
+                fetch(`${rootURL}/devices/reset/${devId}`, {
+                    method: 'get',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": 'Bearer ' + token
+                    }
+                }).then((response) => {
+                    if (response.status === 200) {
+                        console.log('factory resetting the device');
+                    }
+                }).catch((err) => {
+                    console.log(err);
+                });
             }
         }
     }
@@ -58,21 +52,18 @@ const Operation = (props) => {
         if (window.confirm('Did you check the firmware binary\nis correct for the device?')) {
             if (window.confirm('Do you really want to upgrade the firmware?')) {
                 let url = {fw_url:fw_url};
-                fetch(`${rootURL}/devices/upgrade/${devId}`,
-                    {
-                        method: 'post',
-                        headers: { "Content-Type": "application/json",
-                            "Authorization": 'Bearer ' + token },
-                        body: JSON.stringify(url)
-                    })
-                    .then((response) => {
-                        if (response.status === 200) {
-                            console.log('the device firmware will be upgraded');
-                        }
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
+                fetch(`${rootURL}/devices/upgrade/${devId}`, {
+                    method: 'post',
+                    headers: { "Content-Type": "application/json",
+                        "Authorization": 'Bearer ' + token },
+                    body: JSON.stringify(url)
+                }).then((response) => {
+                    if (response.status === 200) {
+                        console.log('the device firmware will be upgraded');
+                    }
+                }).catch((err) => {
+                    console.log(err);
+                });
             }
         }
     }

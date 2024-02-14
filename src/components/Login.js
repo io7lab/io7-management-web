@@ -28,30 +28,27 @@ const Login = (props) => {
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch(rootURL + '/users/login',
-            {
-                method: 'post',
-                headers: { "Content-Type": "application/json", },
-                body: JSON.stringify({
-                    "email": event.target.email.value,
-                    "password": event.target.password.value
-                })
+        fetch(rootURL + '/users/login',{
+            method: 'post',
+            headers: { "Content-Type": "application/json", },
+            body: JSON.stringify({
+                "email": event.target.email.value,
+                "password": event.target.password.value
             })
-            .then((result) => result.json())
-            .then((data) => {
-                if (data.access_token === undefined) {
-                    alert('invalid userid/password')
-                    console.log('login failed');
-                } else {
-                    console.log('login succeeded');
-                    cookies.set('token', data.access_token);
-                    setToken(data.access_token);
-                    get_mqttws_pw(data.access_token);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        }).then((result) => result.json())
+        .then((data) => {
+            if (data.access_token === undefined) {
+                alert('invalid userid/password')
+                console.log('login failed');
+            } else {
+                console.log('login succeeded');
+                cookies.set('token', data.access_token);
+                setToken(data.access_token);
+                get_mqttws_pw(data.access_token);
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     return (

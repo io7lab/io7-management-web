@@ -16,23 +16,20 @@ const AppId = (props) => {
     const deleteAppId = (event) => {
 
         if(window.confirm('Do you really want to delete this App Id?')) {
-            fetch(rootURL + '/app-ids/' + appId, 
-                {
-                    method: 'delete',
-                    headers: { "Content-Type": "application/json",
-                            "Authorization": 'Bearer ' + token },
-                })
-                .then((response) => {
-                    if (response.ok) {
-                        alert(`App Id "(${appId})" deleted`);
-                        setChosenApp(undefined) 
-                        setDeleted(true) 
-                    }
-                    return;
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+            fetch(rootURL + '/app-ids/' + appId, {
+                method: 'delete',
+                headers: { "Content-Type": "application/json",
+                        "Authorization": 'Bearer ' + token },
+            }).then((response) => {
+                if (response.ok) {
+                    alert(`App Id "(${appId})" deleted`);
+                    setChosenApp(undefined) 
+                    setDeleted(true) 
+                }
+                return;
+            }).catch((err) => {
+                console.log(err);
+            });
         }
     }
 

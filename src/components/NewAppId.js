@@ -25,40 +25,37 @@ const NewAppId = (props) => {
         event.preventDefault();
         let pw = getPassword(event.target.password.value);
 
-        fetch(rootURL + '/app-ids',
-            {
-                method: 'post',
-                headers: { "Content-Type": "application/json",
-                        "Authorization": 'Bearer ' + token },
-                body: JSON.stringify({
-                    "appId": event.target.appId.value,
-                    "appDesc": event.target.appDesc.value,
-                    "createdDate": new Date(),
-                    "password": pw
-                })
+        fetch(rootURL + '/app-ids', {
+            method: 'post',
+            headers: { "Content-Type": "application/json",
+                    "Authorization": 'Bearer ' + token },
+            body: JSON.stringify({
+                "appId": event.target.appId.value,
+                "appDesc": event.target.appDesc.value,
+                "createdDate": new Date(),
+                "password": pw
             })
-            .then((response) => {
-                if (response.status === 200) {
-                    alert(`
-                        App Id "(${event.target.appId.value})" created,
-                        the password is "${pw}".
-                        please take the password,
-                        since it's not possible to see later.`);
-                    setAdded(true);
-                    setNewApp(false);
-                    setChosenApp(undefined);
-                    return response.json();
-                } else if (response.status === 409){
-                    alert(`the App Id or Device "${event.target.appId.value}" exists.`);
-                    return [];
-                } else if (response.status === 422){
-                    alert('please check the data');
-                    return [];
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        }).then((response) => {
+            if (response.status === 200) {
+                alert(`
+                    App Id "(${event.target.appId.value})" created,
+                    the password is "${pw}".
+                    please take the password,
+                    since it's not possible to see later.`);
+                setAdded(true);
+                setNewApp(false);
+                setChosenApp(undefined);
+                return response.json();
+            } else if (response.status === 409){
+                alert(`the App Id or Device "${event.target.appId.value}" exists.`);
+                return [];
+            } else if (response.status === 422){
+                alert('please check the data');
+                return [];
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     useEffect(() => {

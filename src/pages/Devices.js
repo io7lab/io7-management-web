@@ -46,27 +46,23 @@ const Devices = () => {
     forRefresh++;
 
     useEffect(() => {
-        fetch(rootURL + '/devices',
-            {
-                method: 'get',
-                headers: { "Authorization": 'Bearer ' + token },
-            })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    const cookies = new Cookies();
-                    cookies.set('token', '');
-                    window.location.reload();
-                    return [];
-                }
-            })
-            .then((data) => {
-                setDevices(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        fetch(rootURL + '/devices', {
+            method: 'get',
+            headers: { "Authorization": 'Bearer ' + token },
+        }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                const cookies = new Cookies();
+                cookies.set('token', '');
+                window.location.reload();
+                return [];
+            }
+        }).then((data) => {
+            setDevices(data);
+        }).catch((err) => {
+            console.log(err);
+        });
 
         setAdded(false);
         setDeleted(false);

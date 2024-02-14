@@ -28,26 +28,22 @@ const Device = (props) => {
     const deleteDevice = (event) => {
 
         if(window.confirm('Do you really delete this device?')) {
-            fetch(rootURL + '/devices/' + devId, 
-                {
-                    method: 'delete',
-                    headers: { "Content-Type": "application/json",
-                            "Authorization": 'Bearer ' + token },
-                })
-                .then((response) => {
-                    if (response.ok) {
-                        alert(`device "(${devId})" deleted`);
-                        setChosenDevice(undefined) 
-                        setDeleted(true) 
-                    }
-                    return;
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+            fetch(rootURL + '/devices/' + devId, {
+                method: 'delete',
+                headers: { "Content-Type": "application/json",
+                        "Authorization": 'Bearer ' + token },
+            }).then((response) => {
+                if (response.ok) {
+                    alert(`device "(${devId})" deleted`);
+                    setChosenDevice(undefined) 
+                    setDeleted(true) 
+                }
+                return;
+            }).catch((err) => {
+                console.log(err);
+            }).catch((err) => {
+                console.log(err);
+            });
         }
     }
     function TabPanel(props) {

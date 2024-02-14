@@ -28,47 +28,44 @@ const NewDevice = (props) => {
         event.preventDefault();
         let pw = getPassword(event.target.password.value);
 
-        fetch(rootURL + '/devices',
-            {
-                method: 'post',
-                headers: { "Content-Type": "application/json",
-                        "Authorization": 'Bearer ' + token },
-                body: JSON.stringify({
-                    "devId": event.target.devId.value,
-                    "devDesc": event.target.devDesc.value,
-                    "createdBy": 'admin',
-                    "type": deviceType,
-                    "createdDate": new Date(),
-                    "password": pw,
-                    "devMaker": event.target.devMaker.value,
-                    "devModel": event.target.devModel.value,
-                    "devSerial": event.target.devSerial.value,
-                    "devHwVer": event.target.devHwVer.value,
-                    "devFwVer": event.target.devFwVer.value
-                })
+        fetch(rootURL + '/devices', {
+            method: 'post',
+            headers: { "Content-Type": "application/json",
+                    "Authorization": 'Bearer ' + token },
+            body: JSON.stringify({
+                "devId": event.target.devId.value,
+                "devDesc": event.target.devDesc.value,
+                "createdBy": 'admin',
+                "type": deviceType,
+                "createdDate": new Date(),
+                "password": pw,
+                "devMaker": event.target.devMaker.value,
+                "devModel": event.target.devModel.value,
+                "devSerial": event.target.devSerial.value,
+                "devHwVer": event.target.devHwVer.value,
+                "devFwVer": event.target.devFwVer.value
             })
-            .then((response) => {
-                if (response.status === 200) {
-                    alert(`
-                        device "(${event.target.devId.value})" created,
-                        the password is "${pw}".
-                        please take the password,
-                        since it's not possible to see later.`);
-                    setAdded(true);
-                    setNewDev(false);
-                    setChosenDevice(undefined);
-                    return response.json();
-                } else if (response.status === 409){
-                    alert(`the Device or App Id "${event.target.devId.value}" exists.`);
-                    return [];
-                } else if (response.status === 422){
-                    alert('please check the data');
-                    return [];
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        }).then((response) => {
+            if (response.status === 200) {
+                alert(`
+                    device "(${event.target.devId.value})" created,
+                    the password is "${pw}".
+                    please take the password,
+                    since it's not possible to see later.`);
+                setAdded(true);
+                setNewDev(false);
+                setChosenDevice(undefined);
+                return response.json();
+            } else if (response.status === 409){
+                alert(`the Device or App Id "${event.target.devId.value}" exists.`);
+                return [];
+            } else if (response.status === 422){
+                alert('please check the data');
+                return [];
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     let handleTypeChange = (event) => {

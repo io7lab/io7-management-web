@@ -18,14 +18,12 @@ const Meta = (props) => {
     const handleSubmit = (event) => {
         try {
             let meta = {metadata: JSON.parse(metaData)}
-            fetch(`${rootURL}/devices/update/${devId}`,
-            {
+            fetch(`${rootURL}/devices/update/${devId}`, {
                 method: 'post',
                 headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token },
                 body: JSON.stringify(meta)
-            })
-            .then((response) => {
+            }).then((response) => {
                 if (response.status === 200) {
                     setErrMessage('metadata updated.');
                 }

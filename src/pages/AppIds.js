@@ -26,26 +26,22 @@ const AppIds = () => {
     const [chosenApp, setChosenApp] = useState(undefined);
 
     useEffect(() => {
-        fetch(rootURL + '/app-ids',
-            {
-                method: 'get',
-                headers: { "Authorization": 'Bearer ' + token },
-            })
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    cookies.set('token', '');
-                    window.location.reload();
-                    return [];
-                }
-            })
-            .then((data) => {
-                setAppIds(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        fetch(rootURL + '/app-ids', {
+            method: 'get',
+            headers: { "Authorization": 'Bearer ' + token },
+        }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                cookies.set('token', '');
+                window.location.reload();
+                return [];
+            }
+        }).then((data) => {
+            setAppIds(data);
+        }).catch((err) => {
+            console.log(err);
+        });
 
         setAdded(false);
         setDeleted(false);
