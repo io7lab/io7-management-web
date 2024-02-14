@@ -104,7 +104,7 @@ const Device = (props) => {
                     orientation="vertical"
                     value={value}
                     onChange={handleChange}
-                    aria-label="Vertical tabs example"
+                    aria-label="Vertical tabs"
                     sx={{ borderRight: 1, borderColor: 'divider' }}
                 >
                     <Tab label="Detail" {...a11yProps(0)} />
