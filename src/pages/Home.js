@@ -22,7 +22,19 @@ const Home = (props) => {
     }, []);
 
     return (
-        <iframe srcdoc={doc} frameborder="0" marginheight="0" marginwidth="0" width="1000px" height="100%"></iframe>
+        <div style={{height:'100%',marginLeft:'5%', overflowY:'hidden'}}>
+            <center>
+                <h1>io7 IOT Device Platform</h1><hr/>
+            </center>
+            <iframe srcdoc={doc} frameborder="0" style={{margin:'auto', display:'block'}} marginheight="0" marginwidth="0" width="80%" height="87%"></iframe>
+            <center>
+                <hr />
+                <HomeIcon fontSize='large' />
+                <MemoryIcon fontSize='large' />
+                <AppRegistrationIcon fontSize='large' />
+                <SettingsIcon fontSize='large' />
+            </center>
+        </div>
     )
 }
 
