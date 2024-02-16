@@ -26,7 +26,7 @@ const Home = (props) => {
             <center>
                 <h1>io7 IOT Device Platform</h1><hr/>
             </center>
-            <iframe srcdoc={doc} frameborder="0" style={{margin:'auto', display:'block'}} marginheight="0" marginwidth="0" width="80%" height="87%"></iframe>
+            <iframe srcdoc={doc} title='io7doc' frameborder="0" style={{margin:'auto', display:'block'}} marginheight="0" marginwidth="0" width="80%" height="87%"></iframe>
             <center>
                 <hr />
                 <HomeIcon fontSize='large' />
