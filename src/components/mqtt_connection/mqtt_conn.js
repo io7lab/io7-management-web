@@ -1,4 +1,4 @@
-import mqtt, { connect } from 'mqttws/dist/mqtt';
+import mqtt, { connect } from 'mqtt';
 
 const conn_mgr = {
     connect : (broker, option) => {

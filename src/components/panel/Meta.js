@@ -35,16 +35,18 @@ const Meta = (props) => {
     
     useEffect(() => {
         mqttClient.subscribe(`iot3/${devId}/mgmt/device/meta`, {qos:0});
-        mqttClient.on('message', (topic, message) => {
+        function msgHandler (topic, message) {
             console.log(topic + ' : ' + message.toString());
             let meta = JSON.parse(message);
             if (meta.d && meta.d.metadata) {
                 setMetaData(JSON.stringify(meta.d.metadata, null, 4));
             }
-        });
+        };
+        mqttClient.on('message', msgHandler);
 
         return () => {
             mqttClient.unsubscribe(`iot3/${devId}/mgmt/device/meta`);
+            mqttClient.removeListener('message', msgHandler);
         };
     }, [])
 

@@ -72,7 +72,7 @@ const Devices = () => {
     useEffect(() => {
         if(mqttClient) {
             mqttClient.subscribe('iot3/+/evt/connection/fmt/json', {qos:0});
-            mqttClient.on('message', (topic, message) => {
+            function msgHandler (topic, message) {
                 let mObj = JSON.parse(message.toString());
                 if (mObj.d && mObj.d.status) {
                     let devId = topic.split('/')[1];
@@ -85,10 +85,12 @@ const Devices = () => {
                         }
                     }
                 }
-            });
+            };
+            mqttClient.on('message', msgHandler);
     
             return () => {
                 mqttClient.unsubscribe('iot3/+/evt/connection/fmt/json');
+                mqttClient.removeListener('message', msgHandler);
             };
         }
     }, [mqttClient, forRefresh]);

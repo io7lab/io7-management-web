@@ -8,17 +8,19 @@ const Event = (props) => {
 
     useEffect(() => {
         mqttClient.subscribe(`iot3/${devId}/evt/status/fmt/json`, {qos:0});
-        mqttClient.on('message', (topic, message) => {
+        function msgHandler (topic, message) {
             let eventTable = document.getElementById("eventList"); 
             let row = eventTable.insertRow(1);
             let evt = row.insertCell(0);
             let evtTime = row.insertCell(1);
             evt.innerHTML = message.toString();
             evtTime.innerHTML = (new Date()).toLocaleTimeString();
-        });
+        };
+        mqttClient.on('message', msgHandler);
 
         return () => {
             mqttClient.unsubscribe(`iot3/${devId}/evt/status/fmt/json`);
+            mqttClient.removeListener('message', msgHandler);
         };
     }, [])
 
