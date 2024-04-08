@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import "../../style/Event.css";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 const Event = (props) => {
     const { devId } = props.chosenDevice;
@@ -11,8 +18,8 @@ const Event = (props) => {
         function msgHandler (topic, message) {
             let eventTable = document.getElementById("eventList"); 
             let row = eventTable.insertRow(1);
-            let evt = row.insertCell(0);
-            let evtTime = row.insertCell(1);
+            let evtTime = row.insertCell(0);
+            let evt = row.insertCell(1);
             evt.innerHTML = message.toString();
             evtTime.innerHTML = (new Date()).toLocaleTimeString();
         };
@@ -27,16 +34,20 @@ const Event = (props) => {
     return (
         <Box>
             <h1>Device Id : {devId}</h1>
-            <table id='eventList' className='event-list'>
-                <thead>
-                    <tr>
-                        <th>Event</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <TableContainer sx={{ height: 700, width: '100%' }} component={Paper}>
+                <Table id='eventList' sx={{ minWidth: 750 }} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell sx={{ width: 80 }}><b>Time</b></TableCell>
+                            <TableCell><b>Event</b></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <tbody>
+                        </tbody>
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </Box>
     )
 }
