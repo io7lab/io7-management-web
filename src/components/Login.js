@@ -12,20 +12,6 @@ const Login = (props) => {
     const { setToken } = props;
     const cookies = new Cookies();
 
-    function get_mqttws_pw(token) {
-        fetch(rootURL + '/users/mqttws_access', {
-            method: 'get',
-            headers: { "Authorization": 'Bearer ' + token }
-        })
-        .then((result) => result.json())
-        .then((data) => {
-            cookies.set('mqttws_pw', data.password);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
-
     function handleSubmit(event) {
         event.preventDefault();
         fetch(rootURL + '/users/login',{
@@ -44,7 +30,6 @@ const Login = (props) => {
                 console.log('login succeeded');
                 cookies.set('token', data.access_token);
                 setToken(data.access_token);
-                get_mqttws_pw(data.access_token);
             }
         }).catch((err) => {
             console.log(err);

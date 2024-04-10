@@ -38,9 +38,8 @@ const Devices = () => {
     const [newDev, setNewDev] = useState(false);
     const [chosenDevice, setChosenDevice] = useState(undefined);
 
-    const mqttws_pw = cookies.get('mqttws_pw');
-    if(mqttws_pw) {
-        mqtt_options.password = mqttws_pw;
+    if(token) {
+        mqtt_options.password = token;
         conn_mgr.connect(mqtturl, mqtt_options);
     }
 
