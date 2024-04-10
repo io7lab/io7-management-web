@@ -27,8 +27,6 @@ const mqtturl = window.runtime.WS_SERVER_URL  || ws_protocol + svr.hostname + ':
 const mqtt_options = window.runtime.mqtt_options;
 let forRefresh = 0;
 
-// Limitation : current version supports only one web console working due to the mqtt connection.
-
 const Devices = () => {
     const cookies = new Cookies();
     const token = cookies.get('token');
