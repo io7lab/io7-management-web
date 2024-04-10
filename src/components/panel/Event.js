@@ -42,10 +42,8 @@ const Event = (props) => {
                             <TableCell><b>Event</b></TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
                         <tbody>
                         </tbody>
-                    </TableBody>
                 </Table>
             </TableContainer>
         </Box>
