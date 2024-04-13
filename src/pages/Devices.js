@@ -38,6 +38,7 @@ const Devices = () => {
 
     if(token) {
         mqtt_options.password = token;
+        mqtt_options.clientId = 'web_' + Math.round(Math.random() * 100000);
         conn_mgr.connect(mqtturl, mqtt_options);
     }
 
