@@ -70,9 +70,7 @@ const Operation = (props) => {
 
     return (
         <>
-            <Box>
-                <h1>Device Id : {devId}</h1>
-            </Box>
+            <h1>Device Id : {devId}</h1>
             <Box m={2}>
                 <Button startIcon={<BsIcons.BsBootstrapReboot/>} variant="contained" 
                     onClick={() => { rebootDevice() }}>Reboot</Button>

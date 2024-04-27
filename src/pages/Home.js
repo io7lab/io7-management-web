@@ -8,7 +8,7 @@ const Home = (props) => {
     const [doc, setDoc] = useState();
 
     useEffect(() => {
-        let url = 'https://raw.githubusercontent.com/io7lab/io7-platform-cloud/main/doc/io7intro.html';
+        let url = '/io7intro.html';
 
         fetch(url, {
             method: 'get'

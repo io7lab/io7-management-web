@@ -32,7 +32,7 @@ const Event = (props) => {
     }, [])
 
     return (
-        <Box>
+        <>
             <h1>Device Id : {devId}</h1>
             <TableContainer sx={{ height: 700, width: '100%' }} component={Paper}>
                 <Table id='eventList' sx={{ minWidth: 750 }} aria-label="simple table">
@@ -46,7 +46,7 @@ const Event = (props) => {
                         </tbody>
                 </Table>
             </TableContainer>
-        </Box>
+        </>
     )
 }
 

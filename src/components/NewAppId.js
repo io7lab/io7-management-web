@@ -81,7 +81,7 @@ const NewAppId = (props) => {
                         <TextField sx={{ boxShadow: 3 }} id="password" label="Token" variant="filled" />
                     </Box>
                     <Box m={2}>
-                        <TextField id="appDesc" label="Description" multiline maxRows={4} />
+                        <TextField id="appDesc" label="Description" multiline rows={3}  style={{width:'100%'}} />
                     </Box>
 
                     <Button variant='contained' type="submit">

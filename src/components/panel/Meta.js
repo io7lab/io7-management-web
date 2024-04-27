@@ -51,19 +51,19 @@ const Meta = (props) => {
     }, [])
 
     return (
-        <Box>
+        <>
             <h1>Device Id : {devId}</h1>
-                <Box m={2}>
-                    <TextField variant="filled" label='Meta Data' rows='10'
-                        defaultValue={metaData} multiline sx={{ width: "250%" }}
-                        onChange={(event)=>{setMetaData(event.target.value)}} />
-                </Box>
+            <Box m={2}>
+                <TextField variant="filled" label='Meta Data' rows='10'
+                    defaultValue={metaData} multiline sx={{ width: "250%" }}
+                    onChange={(event) => { setMetaData(event.target.value) }} />
+            </Box>
 
-                <Button variant='contained' onClick={(event)=>handleSubmit(event)}>
-                    Update
-                </Button>
+            <Button variant='contained' onClick={(event) => handleSubmit(event)}>
+                Update
+            </Button>
             <h5>{errMessage}</h5>
-        </Box>
+        </>
     )
 }
 

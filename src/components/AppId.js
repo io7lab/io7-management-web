@@ -56,9 +56,9 @@ const AppId = (props) => {
             <>
         <h1>App Id Information : {appId}</h1>
         <Box>
-                <Box m={2}>
+                <Box m={5}>
                     <TextField InputProps={{readOnly: true,}} variant="filled"
-                        label='Description' defaultValue={appDesc} multiline maxRows={4} />
+                        label='Description' defaultValue={appDesc} multiline rows={3}  style={{width:'70%'}} />
                 </Box>
         </Box>
         </>

@@ -107,7 +107,7 @@ const NewDevice = (props) => {
                     </Select>
                 </Box>
                 <Box m={2}>
-                    <TextField id="devDesc" label="Description" multiline maxRows={4} />
+                    <TextField id="devDesc" label="Description" multiline rows={3}  style={{width:'100%'}}/>
                 </Box>
                 <Box m={2}>
                     <TextField sx={{ boxShadow: 3 }} id="devMaker" label="Manufacturer" variant="filled" />

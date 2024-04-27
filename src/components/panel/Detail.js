@@ -10,9 +10,9 @@ const Detail = (props) => {
         <>
             <h1>Device Information : {devId}</h1>
             <Box>
-                <Box m={2}>
+                <Box m={3}>
                     <TextField InputProps={{ readOnly: true, }} variant="filled"
-                        label='Description' defaultValue={devDesc} multiline maxRows={4} />
+                        label='Description' defaultValue={devDesc} multiline rows={3} style={{width:'100%'}} />
                 </Box>
                 <Box m={3}>
                     <TextField InputProps={{ readOnly: true, }} sx={{ boxShadow: 3 }} variant="filled"
