@@ -7,10 +7,9 @@
 window["runtime"] = {
      "ws_protocol":"ws://",
      "mqtt_options" : {
-        "clientId": "io7web",
         "username": "$web",
         "clean_session": true,
-        "tls_insecure": true,
-        "rejectUnauthorized": false
+        "tls_insecure": false,
+        "rejectUnauthorized": true
     }
 }
