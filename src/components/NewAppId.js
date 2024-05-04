@@ -25,7 +25,7 @@ const NewAppId = (props) => {
         event.preventDefault();
         let pw = getPassword(event.target.password.value);
 
-        fetch(rootURL + '/app-ids', {
+        fetch(rootURL + '/app-ids/', {
             method: 'post',
             headers: { "Content-Type": "application/json",
                     "Authorization": 'Bearer ' + token },

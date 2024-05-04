@@ -28,7 +28,7 @@ const NewDevice = (props) => {
         event.preventDefault();
         let pw = getPassword(event.target.password.value);
 
-        fetch(rootURL + '/devices', {
+        fetch(rootURL + '/devices/', {
             method: 'post',
             headers: { "Content-Type": "application/json",
                     "Authorization": 'Bearer ' + token },

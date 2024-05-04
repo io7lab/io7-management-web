@@ -26,7 +26,7 @@ const AppIds = () => {
     const [chosenApp, setChosenApp] = useState(undefined);
 
     useEffect(() => {
-        fetch(rootURL + '/app-ids', {
+        fetch(rootURL + '/app-ids/', {
             method: 'get',
             headers: { "Authorization": 'Bearer ' + token },
         }).then((response) => {

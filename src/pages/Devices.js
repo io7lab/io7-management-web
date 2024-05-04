@@ -45,7 +45,7 @@ const Devices = () => {
     forRefresh++;
 
     useEffect(() => {
-        fetch(rootURL + '/devices', {
+        fetch(rootURL + '/devices/', {
             method: 'get',
             headers: { "Authorization": 'Bearer ' + token },
         }).then((response) => {
