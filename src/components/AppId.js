@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 import { Button, Box , TextField } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Cookies } from 'react-cookie';
+import { useAuth } from '../context';
 
 const svr = window.location;
 let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
 
 const AppId = (props) => {
-    const cookies = new Cookies();
-    const token = cookies.get('token');
+    const { token } = useAuth();
     const {appId, appDesc, createdDate} = props.chosenApp;
     const {setChosenApp, setDeleted} = props;
 
@@ -17,7 +16,7 @@ const AppId = (props) => {
 
         if(window.confirm('Do you really want to delete this App Id?')) {
             fetch(rootURL + '/app-ids/' + appId, {
-                method: 'delete',
+                method: 'DELETE',
                 headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token },
             }).then((response) => {
@@ -36,7 +35,9 @@ const AppId = (props) => {
     useEffect(() => {
         return () => {
             let side_tab = document.getElementById('side-Apps');
-            side_tab.removeAttribute('onClick');
+            if (side_tab && typeof side_tab.removeAttribute === 'function') {
+                side_tab.removeAttribute('onClick');
+            }
         };
     }, [])
 

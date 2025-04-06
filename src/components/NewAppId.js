@@ -3,14 +3,13 @@ import Form from "react-bootstrap/Form";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { Cookies } from 'react-cookie';
+import { useAuth } from '../context';
 
 const svr = window.location;
 let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
 
 const NewAppId = (props) => {
-    const cookies = new Cookies();
-    const token = cookies.get('token');
+    const { token } = useAuth();
     const {setChosenApp, setAdded, setNewApp} = props;
 
     const getPassword = (pw) => {
@@ -26,7 +25,7 @@ const NewAppId = (props) => {
         let pw = getPassword(event.target.password.value);
 
         fetch(rootURL + '/app-ids/', {
-            method: 'post',
+            method: 'POST',
             headers: { "Content-Type": "application/json",
                     "Authorization": 'Bearer ' + token },
             body: JSON.stringify({
@@ -61,7 +60,9 @@ const NewAppId = (props) => {
     useEffect(() => {
         return () => {
             let side_tab = document.getElementById('side-Devices');
-            side_tab.removeAttribute('onClick');
+            if (side_tab && typeof side_tab.removeAttribute === 'function') {
+                side_tab.removeAttribute('onClick');
+            }
         };
     }, [])
 

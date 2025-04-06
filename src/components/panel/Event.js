@@ -8,10 +8,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useMQTT } from '../../context';
 
 const Event = (props) => {
     const { devId } = props.chosenDevice;
-    const { mqttClient } = props;
+    const { mqttClient } = useMQTT();
 
     useEffect(() => {
         mqttClient.subscribe(`iot3/${devId}/evt/status/fmt/json`, {qos:0});

@@ -9,14 +9,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Cookies } from 'react-cookie';
+import { useAuth, useMQTT } from '../context';
 
 import Device from '../components/Device';
 import NewDevice from '../components/NewDevice';
 
 import "../style/Devices.css";
-
-import conn_mgr, { mqttClient } from '../components/mqtt_connection/mqtt_conn';
 
 // it assumes the mqtt and the management console web is on the same hosts.
 // if they are on different hosts, the the following two lines should be modified.
@@ -28,34 +26,33 @@ const mqtt_options = window.runtime.mqtt_options;
 let forRefresh = 0;
 
 const Devices = () => {
-    const cookies = new Cookies();
-    const token = cookies.get('token');
+    const { token, logout } = useAuth();
+    const { mqttClient, mqtt_connect } = useMQTT();
     const [devices, setDevices] = useState([]);
     const [deleted, setDeleted] = useState(false);
     const [added, setAdded] = useState(false);
     const [newDev, setNewDev] = useState(false);
     const [chosenDevice, setChosenDevice] = useState(undefined);
 
-    if(token) {
-        mqtt_options.password = token;
-        mqtt_options.clientId = 'web_' + Math.round(Math.random() * 100000);
-        conn_mgr.connect(mqtturl, mqtt_options);
-    }
+    useEffect(() => {
+        if(mqttClient === null) {
+            mqtt_options.password = token;
+            mqtt_options.clientId = 'web_' + Math.round(Math.random() * 100000);
+            mqtt_connect(mqtturl, mqtt_options);
+        }
+    }, [mqttClient]);
 
     forRefresh++;
 
     useEffect(() => {
         fetch(rootURL + '/devices/', {
-            method: 'get',
+            method: 'GET',
             headers: { "Authorization": 'Bearer ' + token },
         }).then((response) => {
             if (response.ok) {
                 return response.json();
             } else {
-                const cookies = new Cookies();
-                cookies.set('token', '');
-                window.location.reload();
-                return [];
+                logout();
             }
         }).then((data) => {
             setDevices(data);
@@ -110,10 +107,10 @@ const Devices = () => {
         <div className="devices-container">
             {chosenDevice ?
                 (
-                    <Device chosenDevice={chosenDevice} setDeleted={setDeleted} setChosenDevice={setChosenDevice} mqttClient={mqttClient}/>
+                    <Device chosenDevice={chosenDevice} setDeleted={setDeleted} setChosenDevice={setChosenDevice} />
                 ) : (
                     <div>
-                        {newDev && <NewDevice setNewDev={setNewDev} setAdded={setAdded} token={token} setChosenDevice={setChosenDevice} />}
+                        {newDev && <NewDevice setNewDev={setNewDev} setAdded={setAdded} setChosenDevice={setChosenDevice} />}
                         {!newDev && <>
                             <div className='newDevTitle'>
                                 <h1>Device List</h1>

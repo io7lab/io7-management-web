@@ -11,7 +11,7 @@ const Home = (props) => {
         let url = 'https://raw.githubusercontent.com/io7lab/io7-platform-cloud/main/doc/io7intro.html';
 
         fetch(url, {
-            method: 'get'
+            method: 'GET'
         }).then((response) => {
             return response.text();
         }).then((txt) => {
@@ -26,7 +26,8 @@ const Home = (props) => {
             <center>
                 <h1>io7 IOT Device Platform</h1><hr/>
             </center>
-            <iframe srcdoc={doc} title='io7doc' frameborder="0" style={{margin:'auto', display:'block'}} marginheight="0" marginwidth="0" width="80%" height="87%"></iframe>
+            <iframe srcDoc={doc} title='io7doc' style={{ margin: 'auto', display: 'block' }} width="80%" height="87%">
+            </iframe>
             <center>
                 <hr />
                 <HomeIcon fontSize='large' />
