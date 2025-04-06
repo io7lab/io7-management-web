@@ -7,9 +7,8 @@ import AppIds from './pages/AppIds';
 import Settings from './pages/Settings';
 
 function App() {
-	const [token, setToken] = useState('');
 	return (
-		<Sidebar setToken={setToken} token={token}>
+		<Sidebar>
 			<Routes>
 				<Route exact path='/' element={<Home/>}/>
 				<Route path='/devices' element={<Devices/>}/>

@@ -76,7 +76,9 @@ const Device = (props) => {
     useEffect(() => {
         return () => {
             let side_tab = document.getElementById('side-Devices');
-            side_tab.removeAttribute('onClick');
+            if (side_tab && typeof side_tab.removeAttribute === 'function') {
+                side_tab.removeAttribute('onClick');
+            }
         };
     }, [])
 
