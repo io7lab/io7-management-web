@@ -26,7 +26,7 @@ export const MQTTProvider = ({ children }) => {
   // Disconnect from MQTT broker
   const mqtt_disconnect = () => {
     if (mqttClient) {
-      mqttClient.disconnect();
+      mqttClient.end();
       setMqttClient(null);
     }
   };

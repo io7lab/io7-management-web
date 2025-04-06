@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { Cookies } from 'react-cookie';
 
+const tokenId = 'io7_token';
 // Create the authentication context
 const AuthContext = createContext();
 
@@ -17,7 +18,7 @@ export const AuthProvider = ({ children }) => {
 
     // Initialize auth state from cookies on component mount
     useEffect(() => {
-        const storedToken = cookies.get('token');
+        const storedToken = cookies.get(tokenId);
         if (storedToken) {
             setToken(storedToken);
             setIsAuthenticated(true);
@@ -26,14 +27,14 @@ export const AuthProvider = ({ children }) => {
 
     // Login function
     const login = (newToken) => {
-        cookies.set('token', newToken);
+        cookies.set(tokenId, newToken);
         setToken(newToken);
         setIsAuthenticated(true);
     };
 
     // Logout function
     const logout = () => {
-        cookies.set('token', '');
+        cookies.set(tokenId, '');
         setToken('');
         setIsAuthenticated(false);
     };
