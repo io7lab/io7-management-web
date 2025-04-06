@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Cookies } from 'react-cookie';
+import { useAuth } from '../context';
 
 import AppId from '../components/AppId'
 import NewAppId from '../components/NewAppId'
@@ -17,8 +17,7 @@ const svr = window.location;
 let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
 
 const AppIds = () => {
-    const cookies = new Cookies();
-    const token = cookies.get('token');
+    const { token, logout } = useAuth();
     const [appIds, setAppIds] = useState([]);
     const [deleted, setDeleted] = useState(false);
     const [added, setAdded] = useState(false);
@@ -27,15 +26,13 @@ const AppIds = () => {
 
     useEffect(() => {
         fetch(rootURL + '/app-ids/', {
-            method: 'get',
+            method: 'GET',
             headers: { "Authorization": 'Bearer ' + token },
         }).then((response) => {
             if (response.ok) {
                 return response.json();
             } else {
-                cookies.set('token', '');
-                window.location.reload();
-                return [];
+                logout();
             }
         }).then((data) => {
             setAppIds(data);

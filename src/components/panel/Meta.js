@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Cookies } from 'react-cookie';
+import { useAuth, useMQTT } from '../../context';
 
 const svr = window.location;
 let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
 
 const Meta = (props) => {
-    const cookies = new Cookies();
-    const token = cookies.get('token');
+    const { token } = useAuth();
+    const { mqttClient } = useMQTT();
     const { devId } = props.chosenDevice;
-    const { mqttClient } = props;
     const [ metaData, setMetaData ] = useState();
     const [ errMessage, setErrMessage ] = useState('');
 
@@ -19,7 +18,7 @@ const Meta = (props) => {
         try {
             let meta = {metadata: JSON.parse(metaData)}
             fetch(`${rootURL}/devices/update/${devId}`, {
-                method: 'post',
+                method: 'POST',
                 headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token },
                 body: JSON.stringify(meta)

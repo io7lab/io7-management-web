@@ -11,7 +11,7 @@ import { useAuth } from '../context';
 
 const Sidebar = ({ children }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { token, logout } = useAuth();
+  const { token, logout, isAuthenticated } = useAuth();
 
   const logoff = () => {
     if (window.confirm('Do you want to logoff?')) {
@@ -42,7 +42,7 @@ const Sidebar = ({ children }) => {
     },
   ];
 
-  if (token === '') {
+  if (!isAuthenticated) {
     return <Login />;
   }
 

@@ -9,15 +9,14 @@ import Actions from './panel/Actions'
 import { Button } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Cookies } from 'react-cookie';
+import { useAuth, useMQTT } from '../context';
 
 const svr = window.location;
 let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
 
 const Device = (props) => {
     const {devId} = props.chosenDevice;
-    const cookies = new Cookies();
-    const token = cookies.get('token');
+    const { token } = useAuth();
     const {setChosenDevice, setDeleted} = props;
     const [value, setValue] = React.useState(0);
 
@@ -29,7 +28,7 @@ const Device = (props) => {
 
         if(window.confirm('Do you really delete this device?')) {
             fetch(rootURL + '/devices/' + devId, {
-                method: 'delete',
+                method: 'DELETE',
                 headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token },
             }).then((response) => {

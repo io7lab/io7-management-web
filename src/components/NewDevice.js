@@ -5,14 +5,13 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { Cookies } from 'react-cookie';
+import { useAuth } from '../context';
 
 const svr = window.location;
 let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
 
 const NewDevice = (props) => {
-    const cookies = new Cookies();
-    const token = cookies.get('token');
+    const { token } = useAuth();
     const {setChosenDevice, setAdded, setNewDev} = props;
     const [deviceType, setDeviceType] = React.useState('device');
 
@@ -29,7 +28,7 @@ const NewDevice = (props) => {
         let pw = getPassword(event.target.password.value);
 
         fetch(rootURL + '/devices/', {
-            method: 'post',
+            method: 'POST',
             headers: { "Content-Type": "application/json",
                     "Authorization": 'Bearer ' + token },
             body: JSON.stringify({
@@ -75,7 +74,9 @@ const NewDevice = (props) => {
     useEffect(() => {
         return () => {
             let side_tab = document.getElementById('side-Devices');
-            side_tab.removeAttribute('onClick');
+            if (side_tab && typeof side_tab.removeAttribute === 'function') {
+                side_tab.removeAttribute('onClick');
+            }
         };
     }, [])
 

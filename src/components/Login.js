@@ -20,6 +20,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import "../style/Login.css";
 import { useAuth } from '../context';
+
 const svr = window.location;
 let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
 
@@ -32,11 +33,10 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
-
     function handleSubmit(event) {
         event.preventDefault();
         fetch(rootURL + '/users/login',{
-            method: 'post',
+            method: 'POST',
             headers: { "Content-Type": "application/json", },
             body: JSON.stringify({
                 "email": event.target.email.value,

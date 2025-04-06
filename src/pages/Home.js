@@ -11,7 +11,7 @@ const Home = (props) => {
         let url = 'https://raw.githubusercontent.com/io7lab/io7-platform-cloud/main/doc/io7intro.html';
 
         fetch(url, {
-            method: 'get'
+            method: 'GET'
         }).then((response) => {
             return response.text();
         }).then((txt) => {
