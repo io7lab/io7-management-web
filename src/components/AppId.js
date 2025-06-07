@@ -9,7 +9,7 @@ let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':20
 
 const AppId = (props) => {
     const { token } = useAuth();
-    const { appId, appDesc } = props.chosenApp;
+    const { appId, appDesc, restricted } = props.chosenApp;
     const { setChosenApp, setDeleted } = props;
 
     const deleteAppId = (event) => {
@@ -58,9 +58,14 @@ const AppId = (props) => {
             </div>
             <div class='app-container'>
                 <h1>App Id Information : {appId}</h1>
-                <Box mt={10} display="flex" >
-                    <TextField InputProps={{readOnly: true,}} variant="filled"
-                        label='Description' value={appDesc} multiline rows={3}  style={{width:'400px'}} />
+                <Box m={2} >
+                    <TextField InputProps={{readOnly: true,}} sx={{ boxShadow: 3 }} value={appId} label="Application Id" variant="filled" />
+                    <TextField InputProps={{readOnly: true,}} sx={{ boxShadow: 3 }} 
+                        value={restricted ? 'Restricted': 'All Devices'} label="Device Access" variant="filled" />
+                </Box> 
+                <Box m={2}>
+                    <TextField InputProps={{readOnly: true,}} value={appDesc} label="Description" multiline rows={3}  
+                        style={{width:'390px'}}/>
                 </Box>
             </div>
         </div>
