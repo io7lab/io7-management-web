@@ -11,24 +11,24 @@ const Detail = (props) => {
         <div>
             <h1>Device Information : </h1>
             <Box m={2} >
-                <TextField sx={{ boxShadow: 3 }} value={devId} label="Device Id" variant="filled" />
-                <TextField sx={{ boxShadow: 3 }} value={type} label="Device Type" variant="filled" />
+                <TextField InputProps={{readOnly: true,}} sx={{ boxShadow: 3 }} value={devId} label="Device Id" variant="filled" />
+                <TextField InputProps={{readOnly: true,}} sx={{ boxShadow: 3 }} value={type} label="Device Type" variant="filled" />
             </Box> 
             
             <Box m={2}>
-                <TextField value={devDesc} label="Description" multiline rows={3}  style={{width:'100%'}}/>
+                <TextField InputProps={{readOnly: true,}} value={devDesc} label="Description" multiline rows={3}  style={{width:'100%'}}/>
             </Box>
             
             <Box m={2} >
-                <TextField sx={{ boxShadow: 3 }} value={devMaker} label="Manufacturer" variant="filled" />
-                <TextField sx={{ boxShadow: 3 }} value={devSerial} label="Hardware Version" variant="filled" />
+                <TextField InputProps={{readOnly: true,}} sx={{ boxShadow: 3 }} value={devMaker} label="Manufacturer" variant="filled" />
+                <TextField InputProps={{readOnly: true,}} sx={{ boxShadow: 3 }} value={devSerial} label="Hardware Version" variant="filled" />
             </Box> 
             <Box m={2}>
-                <TextField sx={{ boxShadow: 3 }} value={devModel} label="Model" variant="filled" />
-                <TextField sx={{ boxShadow: 3 }} value={devHwVer} label="Hardware Version" variant="filled" />
+                <TextField InputProps={{readOnly: true,}} sx={{ boxShadow: 3 }} value={devModel} label="Model" variant="filled" />
+                <TextField InputProps={{readOnly: true,}} sx={{ boxShadow: 3 }} value={devHwVer} label="Hardware Version" variant="filled" />
             </Box>
             <Box m={2}>
-                <TextField sx={{ boxShadow: 3 }} value={devFwVer} label="Firmware Version" variant="filled" />
+                <TextField InputProps={{readOnly: true,}} sx={{ boxShadow: 3 }} value={devFwVer} label="Firmware Version" variant="filled" />
             </Box>
         </div>
     )
