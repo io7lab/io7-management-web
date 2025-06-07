@@ -3,9 +3,12 @@ import Form from "react-bootstrap/Form";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 import { useAuth } from '../context';
+import '../style/Devices.css';
 
 const svr = window.location;
 let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
@@ -86,26 +89,32 @@ const NewDevice = (props) => {
     }
     
     return (
-        <>
+        <div class='new-device-container'>
         {setClick2List('side-Devices')}
         <h1>New Device</h1>
-        <Box mt={10} display="flex" justifyContent="center">
+        <Box mt={10} display="flex">
             <Form onSubmit={handleSubmit}>
                 <Box m={2}>
                     <TextField sx={{ boxShadow: 3 }} required id="devId" label="Device Id" variant="filled" />
                     <TextField sx={{ boxShadow: 3 }} id="password" label="Token" variant="filled" />
                 </Box>
-                <Box m={2}>
-                    Device Type :
-                    <Select
-                        id="deviceType"
-                        value={deviceType}
-                        label="Type"
-                        onChange={handleTypeChange}
+                <Box m={2} sx={{ display: 'flex', gap: 2 }}>
+                    <FormControl 
+                        variant="filled" 
+                        sx={{ boxShadow: 3, width: '100%' }}
                     >
-                        <MenuItem value='device'>Device</MenuItem>
-                        <MenuItem value='gateway'>Gateway</MenuItem>
-                    </Select>
+                        <InputLabel id="device-type-label">Device Type</InputLabel>
+                        <Select
+                            labelId="device-type-label"
+                            id="deviceType"
+                            value={deviceType}
+                            label="Device Type"
+                            onChange={handleTypeChange}
+                        >
+                            <MenuItem value='device'>Device</MenuItem>
+                            <MenuItem value='gateway'>Gateway</MenuItem>
+                        </Select>
+                    </FormControl>
                 </Box>
                 <Box m={2}>
                     <TextField id="devDesc" label="Description" multiline rows={3}  style={{width:'100%'}}/>
@@ -118,16 +127,16 @@ const NewDevice = (props) => {
                     <TextField sx={{ boxShadow: 3 }} id="devModel" label="Model" variant="filled" />
                     <TextField sx={{ boxShadow: 3 }} id="devHwVer" label="Hardware Version" variant="filled" />
                 </Box>
-                <Box m={2}>
-                    <TextField sx={{ boxShadow: 3 }} id="devFwVer" label="Firmware Version" variant="filled" />
+                <Box m={2} sx={{ display: 'flex', gap: 2 }}>
+                    <TextField sx={{ boxShadow: 3, width: '50%' }} id="devFwVer" label="Firmware Version" variant="filled" />
                 </Box>
 
-                <Button variant='contained' type="submit">
+                <Button variant='contained' type="submit" >
                     Create
                 </Button>
             </Form>
         </Box>
-        </>
+        </div>
     )
 }
 

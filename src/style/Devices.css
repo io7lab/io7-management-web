@@ -1,2 +1,12 @@
 .devices-container {
+    width: 100%;
+}
+
+.new-device-container {
+    margin-left: 180px;
+}
+
+h2 {
+    margin-bottom: 24px;
+    font-size: 24px;
 }

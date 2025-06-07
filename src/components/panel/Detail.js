@@ -1,37 +1,36 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import '../../style/Devices.css';
 
 const Detail = (props) => {
-    const { devId, devDesc, type, devMaker, devModel, devSerial, devHwVer, devFwVer, 
-            createdBy, createdDate } = props.chosenDevice;
+    const { devId, devDesc, type, devMaker, 
+            devModel, devSerial, devHwVer, devFwVer, } = props.chosenDevice;
 
     return (
-        <>
-            <h1>Device Information : {devId}</h1>
-            <Box>
-                <Box m={3}>
-                    <TextField InputProps={{ readOnly: true, }} variant="filled"
-                        label='Description' defaultValue={devDesc} multiline rows={3} style={{width:'100%'}} />
-                </Box>
-                <Box m={3}>
-                    <TextField InputProps={{ readOnly: true, }} sx={{ boxShadow: 3 }} variant="filled"
-                        label='Model' defaultValue={devModel} />
-                    <TextField InputProps={{ readOnly: true, }} sx={{ boxShadow: 3 }} variant="filled"
-                        label='Serial' defaultValue={devSerial} />
-                    <TextField InputProps={{ readOnly: true, }} sx={{ boxShadow: 3 }} variant="filled"
-                        label='Device Type' defaultValue={type} />
-                </Box>
-                <Box m={3}>
-                    <TextField InputProps={{ readOnly: true, }} sx={{ boxShadow: 3 }} variant="filled"
-                        label='Hardware Version' defaultValue={devHwVer} />
-                    <TextField InputProps={{ readOnly: true, }} sx={{ boxShadow: 3 }} variant="filled"
-                        label='Firmware Version' defaultValue={devFwVer} />
-                    <TextField InputProps={{ readOnly: true, }} sx={{ boxShadow: 3 }} variant="filled"
-                        label='Manufacturer' defaultValue={devMaker} />
-                </Box>
+        <div>
+            <h1>Device Information : </h1>
+            <Box m={2} >
+                <TextField sx={{ boxShadow: 3 }} value={devId} label="Device Id" variant="filled" />
+                <TextField sx={{ boxShadow: 3 }} value={type} label="Device Type" variant="filled" />
+            </Box> 
+            
+            <Box m={2}>
+                <TextField value={devDesc} label="Description" multiline rows={3}  style={{width:'100%'}}/>
             </Box>
-        </>
+            
+            <Box m={2} >
+                <TextField sx={{ boxShadow: 3 }} value={devMaker} label="Manufacturer" variant="filled" />
+                <TextField sx={{ boxShadow: 3 }} value={devSerial} label="Hardware Version" variant="filled" />
+            </Box> 
+            <Box m={2}>
+                <TextField sx={{ boxShadow: 3 }} value={devModel} label="Model" variant="filled" />
+                <TextField sx={{ boxShadow: 3 }} value={devHwVer} label="Hardware Version" variant="filled" />
+            </Box>
+            <Box m={2}>
+                <TextField sx={{ boxShadow: 3 }} value={devFwVer} label="Firmware Version" variant="filled" />
+            </Box>
+        </div>
     )
 }
 
