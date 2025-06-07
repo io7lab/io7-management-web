@@ -9,8 +9,8 @@ let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':20
 
 const AppId = (props) => {
     const { token } = useAuth();
-    const {appId, appDesc, createdDate} = props.chosenApp;
-    const {setChosenApp, setDeleted} = props;
+    const { appId, appDesc } = props.chosenApp;
+    const { setChosenApp, setDeleted } = props;
 
     const deleteAppId = (event) => {
 
@@ -48,21 +48,21 @@ const AppId = (props) => {
 
     return (
         <div>
-            {setClick2List('side-Apps')}
-            <Box sx={{display: 'flex', justifyContent: 'space-between' }}>
-                <Button startIcon={<ArrowBackIcon />}  variant="contained" onClick={() => { setChosenApp(undefined) }}>Back to List</Button>
-                <Button startIcon={<DeleteIcon />} variant="contained" onClick={() => { deleteAppId() }}>Delete</Button>
-            </Box>
-            <hr/>
-            <>
-        <h1>App Id Information : {appId}</h1>
-        <Box>
-                <Box m={5}>
-                    <TextField InputProps={{readOnly: true,}} variant="filled"
-                        label='Description' defaultValue={appDesc} multiline rows={3}  style={{width:'70%'}} />
+            <div>
+                {setClick2List('side-Apps')}
+                <Box sx={{display: 'flex', justifyContent: 'space-between' }}>
+                    <Button startIcon={<ArrowBackIcon />}  variant="contained" onClick={() => { setChosenApp(undefined) }}>Back to List</Button>
+                    <Button startIcon={<DeleteIcon />} variant="contained" onClick={() => { deleteAppId() }}>Delete</Button>
                 </Box>
-        </Box>
-        </>
+                <hr/>
+            </div>
+            <div class='app-container'>
+                <h1>App Id Information : {appId}</h1>
+                <Box mt={10} display="flex" >
+                    <TextField InputProps={{readOnly: true,}} variant="filled"
+                        label='Description' value={appDesc} multiline rows={3}  style={{width:'400px'}} />
+                </Box>
+            </div>
         </div>
     )
 }

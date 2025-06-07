@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { useAuth } from '../context';
+import '../style/Devices.css';
 
 const svr = window.location;
 let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
@@ -72,10 +73,10 @@ const NewAppId = (props) => {
     }
 
     return (
-        <>
+        <div class='new-app-container'>
             {setClick2List('side-Apps')}
             <h1>New App Id</h1>
-            <Box mt={10} display="flex" justifyContent="center">
+            <Box mt={10} display="flex" >
                 <Form onSubmit={handleSubmit}>
                     <Box m={2}>
                         <TextField sx={{ boxShadow: 3 }} required id="appId" label="App Id" variant="filled" />
@@ -90,7 +91,7 @@ const NewAppId = (props) => {
                     </Button>
                 </Form>
             </Box>
-        </>
+        </div>
     )
 }
 
