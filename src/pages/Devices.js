@@ -120,12 +120,12 @@ const Devices = () => {
                                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>Device Id</TableCell>
-                                            <TableCell>online</TableCell>
-                                            <TableCell>Type</TableCell>
-                                            <TableCell>Created By</TableCell>
-                                            <TableCell>Created Date</TableCell>
-                                            <TableCell>Detail</TableCell>
+                                            <TableCell><b>Device Id</b></TableCell>
+                                            <TableCell><b>online</b></TableCell>
+                                            <TableCell><b>Type</b></TableCell>
+                                            <TableCell><b>Created By</b></TableCell>
+                                            <TableCell><b>Created Date</b></TableCell>
+                                            <TableCell><b>Detail</b></TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>

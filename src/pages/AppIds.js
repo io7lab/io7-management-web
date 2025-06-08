@@ -72,10 +72,10 @@ const AppIds = () => {
                                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>App Id</TableCell>
-                                            <TableCell>Description</TableCell>
-                                            <TableCell>Created Date</TableCell>
-                                            <TableCell>Detail</TableCell>
+                                            <TableCell><b>App Id</b></TableCell>
+                                            <TableCell><b>Description</b></TableCell>
+                                            <TableCell><b>Created Date</b></TableCell>
+                                            <TableCell><b>Detail</b></TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
