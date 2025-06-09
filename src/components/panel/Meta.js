@@ -18,7 +18,7 @@ const Meta = (props) => {
         try {
             let meta = {metadata: JSON.parse(metaData)}
             fetch(`${rootURL}/devices/update/${devId}`, {
-                method: 'POST',
+                method: 'PUT',
                 headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token },
                 body: JSON.stringify(meta)

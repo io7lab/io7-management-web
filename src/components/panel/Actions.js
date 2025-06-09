@@ -52,7 +52,7 @@ const Operation = (props) => {
             if (window.confirm('Do you really want to upgrade the firmware?')) {
                 let url = {fw_url:fw_url};
                 fetch(`${rootURL}/devices/upgrade/${devId}`, {
-                    method: 'POST',
+                    method: 'PUT',
                     headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token },
                     body: JSON.stringify(url)
