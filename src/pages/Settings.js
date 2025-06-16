@@ -3,6 +3,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import MemoryIcon from '@mui/icons-material/Memory';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { Box } from '@mui/material';
 
 
 const Settings = (props) => {
@@ -17,10 +18,12 @@ const Settings = (props) => {
             <center>
                 <p>This is the settings page of io7 IOT Device Platform management.</p>
                 <hr />
-                <HomeIcon fontSize='large' />
-                <MemoryIcon fontSize='large' />
-                <AppRegistrationIcon fontSize='large' />
-                <SettingsIcon fontSize='large' />
+                <Box sx={{ mt: 10 }}>
+                    <HomeIcon fontSize='large' />
+                    <MemoryIcon fontSize='large' />
+                    <AppRegistrationIcon fontSize='large' />
+                    <SettingsIcon fontSize='large' />
+                </Box>
             </center>
         </div>
     )
