@@ -18,3 +18,24 @@ h2 {
     margin-bottom: 24px;
     font-size: 24px;
 }
+
+@keyframes blinkRed {
+  0%, 50% {
+    color: #f44336;
+    opacity: 1;
+  }
+  51%, 100% {
+    color: #f44336;
+    opacity: 0.3;
+  }
+}
+
+.blink-red-icon {
+  animation: blinkRed 1s infinite;
+  color: #f44336 !important;
+}
+
+.blue-icon {
+  color: #2196f3 !important;
+}
+/* !important is a CSS declaration that gives a style rule the highest priority, overriding the normal CSS specificity rules. */
