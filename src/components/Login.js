@@ -19,7 +19,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import "../style/Login.css";
-import { useAuth } from '../context';
+import { useAuth, useMQTT } from '../context';
 
 const svr = window.location;
 let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
@@ -27,6 +27,7 @@ let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':20
 const Login = () => {
     const theme = useTheme();
     const { login } = useAuth();
+    const { mqtt_disconnect } = useMQTT();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -48,6 +49,7 @@ const Login = () => {
                 alert('invalid userid/password')
                 console.log('login failed');
             } else {
+                mqtt_disconnect();
                 console.log('login succeeded');
                 login(data.access_token);
             }
