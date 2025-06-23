@@ -84,7 +84,7 @@ const NewAppId = (props) => {
     };
 
     return (
-        <div class='new-app-container'>
+        <div className='new-app-container'>
             {setClick2List('side-Apps')}
             <h1>New App Id</h1>
             <Box mt={10} display="flex" >
