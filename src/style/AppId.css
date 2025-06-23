@@ -1,0 +1,19 @@
+@keyframes blinkRed {
+  0%, 50% {
+    color: #f44336;
+    opacity: 1;
+  }
+  51%, 100% {
+    color: #f44336;
+    opacity: 0.3;
+  }
+}
+
+.blink-red-icon {
+  animation: blinkRed 1s infinite;
+  color: #f44336 !important;
+}
+
+.blue-icon {
+  color: #2196f3 !important;
+}

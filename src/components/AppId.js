@@ -26,6 +26,10 @@ const AppId = (props) => {
     const [saving, setSaving] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [reviewMembers, setReviewMembers] = useState([]);
+    // State for Fix It functionality
+    const [toFix, setToFix] = useState(props.chosenApp.toFix);
+    const [showFixDialog, setShowFixDialog] = useState(false);
+    const [appPassword, setAppPassword] = useState('');
 
     const deleteAppId = (event) => {
 
@@ -45,6 +49,36 @@ const AppId = (props) => {
                 console.log(err);
             });
         }
+    }
+
+    // Function to handle Fix It functionality
+    const handleFixSubmit = () => {
+        fetch(rootURL + `/app-ids/${appId}/update`, {
+            method: 'PATCH',
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": 'Bearer ' + token 
+            },
+            body: JSON.stringify({
+                "password": appPassword,
+            })
+        }).then((response) => {
+            if (response.status === 200) {
+                alert(`
+                    App Id "(${appId})" fixed,
+                    the password is "${appPassword}".
+                    please take the password,
+                    since it's not possible to see later.`);
+                setToFix(undefined);
+                props.chosenApp.toFix = undefined;
+                return response.json();
+            } else if (response.status === 422){
+                alert('please check the data');
+                return [];
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     // Function to fetch members for restricted app IDs
@@ -440,6 +474,54 @@ const AppId = (props) => {
                     </Box>
                 )}
             </div>
+            {/* Fix It Dialog */}
+            <Dialog open={showFixDialog} onClose={() => setShowFixDialog(false)} maxWidth="sm" fullWidth>
+                <DialogTitle>Enter New Token</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        label="Token"
+                        type="text"
+                        fullWidth
+                        variant="outlined"
+                        value={appPassword}
+                        onChange={(e) => setAppPassword(e.target.value)}
+                        placeholder="Token"
+                    />
+                    <center>
+                        <p style={{ color: 'red', fontWeight: 'bold' }}>
+                            ⚠️ Important:<br/><br/>
+                            Copy and save this token now.<br/>
+                            It cannot be retrieved later.
+                        </p>
+                    </center>
+                </DialogContent>
+                <DialogActions>
+                    <Button 
+                        onClick={() => {
+                            setShowFixDialog(false);
+                            setAppPassword('');
+                        }}
+                        color="secondary"
+                    >
+                        Cancel
+                    </Button>
+                    <Button 
+                        onClick={() => {
+                            handleFixSubmit();
+                            console.log(appPassword);
+                            setShowFixDialog(false);
+                            setAppPassword('');
+                        }}
+                        disabled={!appPassword.trim()}
+                        variant="contained"
+                        color="primary"
+                    >
+                        OK
+                    </Button>
+                </DialogActions>
+            </Dialog>
 
             {/* Confirmation Dialog */}
             <Dialog open={showConfirmation} onClose={() => setShowConfirmation(false)} fullWidth maxWidth="sm">
@@ -518,6 +600,22 @@ const AppId = (props) => {
                     </Button>
                 </DialogActions>
             </Dialog>
+            {/* Fix It button - positioned at the very end */}
+            {toFix && (
+                <Box m={2} ml={23} display="flex" justifyContent="flex-end" alignItems="center" gap={2} style={{width:'390px'}}>
+                    <span style={{ color: 'red', fontWeight: 'bold' }}>
+                        This App Id needs fixed
+                    </span>
+                    <Button 
+                        variant="contained" 
+                        color="primary"
+                        onClick={() => setShowFixDialog(true)}
+                    >
+                        Fix It
+                    </Button>
+                </Box>
+            )}
+
         </div>
     )
 }

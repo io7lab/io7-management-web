@@ -13,6 +13,8 @@ import { useAuth } from '../context';
 
 import AppId from '../components/AppId'
 import NewAppId from '../components/NewAppId'
+import "../style/AppId.css";
+
 const svr = window.location;
 let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
 
@@ -50,7 +52,7 @@ const AppIds = () => {
             createdDate: app.createdDate,
             appDesc: app.appDesc,
             navigate: <IconButton onClick={()=>setChosenApp(app)}>
-                <AppRegistrationIcon/>
+                <AppRegistrationIcon className={app.toFix ? 'blink-red-icon' : 'blue-icon'} />
             </IconButton>
         }
     ));
