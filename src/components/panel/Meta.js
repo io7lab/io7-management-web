@@ -17,7 +17,7 @@ const Meta = (props) => {
     const handleSubmit = (event) => {
         try {
             let meta = {metadata: JSON.parse(metaData)}
-            fetch(`${rootURL}/devices/update/${devId}`, {
+            fetch(`${rootURL}/devices/${devId}/updateMeta`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token },
