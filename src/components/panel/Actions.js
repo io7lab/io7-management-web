@@ -13,7 +13,7 @@ const Operation = (props) => {
 
     const rebootDevice = (event) => {
         if(window.confirm('Do you really want to reboot the device?')) {
-            fetch(`${rootURL}/devices/reboot/${devId}`, {
+            fetch(`${rootURL}/devices/${devId}/reboot`, {
                 method: 'GET',
                 headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token }
@@ -30,7 +30,7 @@ const Operation = (props) => {
     const factoryResetDevice = (event) => {
         if (window.confirm('Do you really want to factory reset the device?')) {
             if (window.confirm('The device will be factory resetted.\nAre you really sure to factory reset the device?')) {
-                fetch(`${rootURL}/devices/reset/${devId}`, {
+                fetch(`${rootURL}/devices/${devId}/reset`, {
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const Operation = (props) => {
         if (window.confirm('Did you check the firmware binary\nis correct for the device?')) {
             if (window.confirm('Do you really want to upgrade the firmware?')) {
                 let url = {fw_url:fw_url};
-                fetch(`${rootURL}/devices/upgrade/${devId}`, {
+                fetch(`${rootURL}/devices/${devId}/upgrade`, {
                     method: 'PUT',
                     headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token },
