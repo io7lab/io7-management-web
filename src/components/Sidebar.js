@@ -55,6 +55,7 @@ const Sidebar = ({ children }) => {
             : "sidebar-container sidebar-container-out"
         }
         onMouseLeave={() => setIsExpanded(false)}
+        onMouseUp={(e) => e.stopPropagation()}
       >
         <div className="nav-upper">
           <div className="nav-heading">
