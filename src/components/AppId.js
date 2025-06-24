@@ -510,7 +510,6 @@ const AppId = (props) => {
                     <Button 
                         onClick={() => {
                             handleFixSubmit();
-                            console.log(appPassword);
                             setShowFixDialog(false);
                             setAppPassword('');
                         }}
