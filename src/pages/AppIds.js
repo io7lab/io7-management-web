@@ -51,7 +51,7 @@ const AppIds = () => {
             id: app.appId,
             createdDate: app.createdDate,
             appDesc: app.appDesc,
-            navigate: <IconButton onClick={()=>setChosenApp(app)}>
+            navigate: <IconButton onClick={()=>setChosenApp(app)} onMouseUp={(e) => e.stopPropagation()}>
                 <AppRegistrationIcon className={app.toFix ? 'blink-red-icon' : 'blue-icon'} />
             </IconButton>
         }

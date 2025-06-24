@@ -97,7 +97,7 @@ const Devices = () => {
             createdDate: device.createdDate,
             type: device.type,
             createdBy: device.createdBy,
-            navigate: <IconButton onClick={()=>setChosenDevice(device)}>
+            navigate: <IconButton onClick={()=>{setChosenDevice(device)}} onMouseUp={(e) => e.stopPropagation()}>
                 <MemoryIcon className={device.toFix ? 'blink-red-icon' : 'blue-icon'} />
             </IconButton>
         }
