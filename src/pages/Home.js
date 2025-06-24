@@ -1,8 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import HomeIcon from '@mui/icons-material/Home';
-import MemoryIcon from '@mui/icons-material/Memory';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { useAuth } from '../context';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -17,43 +13,19 @@ import StorageIcon from '@mui/icons-material/Storage';
 import ApiIcon from '@mui/icons-material/Api';
 import { Box, Tooltip } from '@mui/material';
 
-const svr = window.location;
-let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
-
 const Home = (props) => {
 
-    const { token, logout } = useAuth();
-    const [ dashboard, setDashboard ] = useState([]);
+    const { token, logout, influxdb_url, nodered_url, grafana_url, apiserver_url, dashboard_url} = useAuth();
     const [ appIds, setAppIds ] = useState([]);
     const [ devices, setDevices] = useState([]);
     const windowRefs = useRef({});
     const nodered_name = 'NodeRed';
-    const nodered_url = window.runtime.NODERED_URL || 'http://localhost:1880';
     const grafana_name = 'Grafana';
-    const grafana_url = window.runtime.GRAFANA_URL || 'http://localhost:3003';
     const influxdb_name = 'InfluxDB';
-    const influxdb_url = window.runtime.INFLUXDB_URL || 'http://localhost:8086';
     const apiserver_name = 'API Server';
-    const apiserver_url = rootURL;
-
-    useEffect(() => {
-        fetch(rootURL + '/config/dashboard', {
-            method: 'GET',
-            headers: { "Authorization": 'Bearer ' + token },
-        }).then((response) => {
-            if (response.ok) {
-                return response.json();
-            }
-        }).then((data) => {
-            setDashboard(data.value);
-        }).catch((err) => {
-            console.log(err);
-        });
-
-    }, []);
     
     useEffect(() => {
-        fetch(rootURL + '/devices/', {
+        fetch(apiserver_url + '/devices/', {
             method: 'GET',
             headers: { "Authorization": 'Bearer ' + token },
         }).then((response) => {
@@ -80,7 +52,7 @@ const Home = (props) => {
     ));
 
     useEffect(() => {
-        fetch(rootURL + '/app-ids/', {
+        fetch(apiserver_url + '/app-ids/', {
             method: 'GET',
             headers: { "Authorization": 'Bearer ' + token },
         }).then((response) => {
@@ -146,7 +118,7 @@ const Home = (props) => {
                 </Box>
                 <hr/>
                 <iframe
-                    src={dashboard}
+                    src={dashboard_url}
                     width="80%" height="450" frameBorder="0" />
                 <hr />
 

@@ -4,11 +4,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useAuth, useMQTT } from '../../context';
 
-const svr = window.location;
-let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
-
 const Meta = (props) => {
-    const { token } = useAuth();
+    const { token, apiserver_url } = useAuth();
     const { mqttClient } = useMQTT();
     const { devId } = props.chosenDevice;
     const [ metaData, setMetaData ] = useState();
@@ -17,7 +14,7 @@ const Meta = (props) => {
     const handleSubmit = (event) => {
         try {
             let meta = {metadata: JSON.parse(metaData)}
-            fetch(`${rootURL}/devices/${devId}/updateMeta`, {
+            fetch(`${apiserver_url}/devices/${devId}/updateMeta`, {
                 method: 'PUT',
                 headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token },

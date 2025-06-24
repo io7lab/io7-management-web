@@ -21,12 +21,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import "../style/Login.css";
 import { useAuth, useMQTT } from '../context';
 
-const svr = window.location;
-let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
-
 const Login = () => {
     const theme = useTheme();
-    const { login } = useAuth();
+    const { login, apiserver_url } = useAuth();
     const { mqtt_disconnect } = useMQTT();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -36,7 +33,7 @@ const Login = () => {
 
     function handleSubmit(event) {
         event.preventDefault();
-        fetch(rootURL + '/users/login',{
+        fetch(apiserver_url + '/users/login',{
             method: 'POST',
             headers: { "Content-Type": "application/json", },
             body: JSON.stringify({

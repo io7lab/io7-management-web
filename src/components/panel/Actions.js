@@ -3,17 +3,14 @@ import { Button, Box, TextField } from '@mui/material';
 import * as BsIcons from 'react-icons/bs';
 import { useAuth } from '../../context';
 
-const svr = window.location;
-let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
-
 const Operation = (props) => {
-    const { token } = useAuth();
+    const { token, apiserver_url } = useAuth();
     const { devId } = props.chosenDevice;
     const [ fw_url, set_fw_url ] = useState('');
 
     const rebootDevice = (event) => {
         if(window.confirm('Do you really want to reboot the device?')) {
-            fetch(`${rootURL}/devices/${devId}/reboot`, {
+            fetch(`${apiserver_url}/devices/${devId}/reboot`, {
                 method: 'GET',
                 headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token }
@@ -30,7 +27,7 @@ const Operation = (props) => {
     const factoryResetDevice = (event) => {
         if (window.confirm('Do you really want to factory reset the device?')) {
             if (window.confirm('The device will be factory resetted.\nAre you really sure to factory reset the device?')) {
-                fetch(`${rootURL}/devices/${devId}/reset`, {
+                fetch(`${apiserver_url}/devices/${devId}/reset`, {
                     method: 'GET',
                     headers: {
                         "Content-Type": "application/json",
@@ -51,7 +48,7 @@ const Operation = (props) => {
         if (window.confirm('Did you check the firmware binary\nis correct for the device?')) {
             if (window.confirm('Do you really want to upgrade the firmware?')) {
                 let url = {fw_url:fw_url};
-                fetch(`${rootURL}/devices/${devId}/upgrade`, {
+                fetch(`${apiserver_url}/devices/${devId}/upgrade`, {
                     method: 'PUT',
                     headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token },

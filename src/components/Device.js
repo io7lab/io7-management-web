@@ -11,12 +11,9 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useAuth, useMQTT } from '../context';
 
-const svr = window.location;
-let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
-
 const Device = (props) => {
     const {devId} = props.chosenDevice;
-    const { token } = useAuth();
+    const { token, apiserver_url } = useAuth();
     const {setChosenDevice, setDeleted} = props;
     const [value, setValue] = React.useState(0);
 
@@ -27,7 +24,7 @@ const Device = (props) => {
     const deleteDevice = (event) => {
 
         if(window.confirm('Do you really delete this device?')) {
-            fetch(rootURL + '/devices/' + devId, {
+            fetch(apiserver_url + '/devices/' + devId, {
                 method: 'DELETE',
                 headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token },

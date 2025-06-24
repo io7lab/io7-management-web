@@ -9,11 +9,8 @@ import DialogActions from '@mui/material/DialogActions';
 import { useAuth } from '../../context';
 import '../../style/Devices.css';
 
-const svr = window.location;
-let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
-
 const Detail = (props) => {
-    const { token } = useAuth();
+    const { token, apiserver_url } = useAuth();
     const [showDialog, setShowDialog] = useState(false);
     const [devicePassword, setDevicePassword] = useState('');
 
@@ -32,7 +29,7 @@ const Detail = (props) => {
 
     const handleSubmit = () => {
 
-        fetch(rootURL + `/devices/${devId}/update`, {
+        fetch(apiserver_url + `/devices/${devId}/update`, {
             method: 'PATCH',
             headers: { "Content-Type": "application/json",
                     "Authorization": 'Bearer ' + token },

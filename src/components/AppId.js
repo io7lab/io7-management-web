@@ -7,11 +7,8 @@ import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useAuth } from '../context';
 
-const svr = window.location;
-let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
-
 const AppId = (props) => {
-    const { token } = useAuth();
+    const { token, apiserver_url } = useAuth();
     const { appId, appDesc, restricted } = props.chosenApp;
     const { setChosenApp, setDeleted } = props;
     // State for members list
@@ -34,7 +31,7 @@ const AppId = (props) => {
     const deleteAppId = (event) => {
 
         if(window.confirm('Do you really want to delete this App Id?')) {
-            fetch(rootURL + '/app-ids/' + appId, {
+            fetch(apiserver_url + '/app-ids/' + appId, {
                 method: 'DELETE',
                 headers: { "Content-Type": "application/json",
                         "Authorization": 'Bearer ' + token },
@@ -53,7 +50,7 @@ const AppId = (props) => {
 
     // Function to handle Fix It functionality
     const handleFixSubmit = () => {
-        fetch(rootURL + `/app-ids/${appId}/update`, {
+        fetch(apiserver_url + `/app-ids/${appId}/update`, {
             method: 'PATCH',
             headers: { 
                 "Content-Type": "application/json",
@@ -89,7 +86,7 @@ const AppId = (props) => {
         setError(null);
         
         try {
-            const response = await fetch(`${rootURL}/app-ids/${appId}/members`, {
+            const response = await fetch(`${apiserver_url}/app-ids/${appId}/members`, {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
@@ -115,7 +112,7 @@ const AppId = (props) => {
     // Function to fetch all devices
     const fetchAllDevices = async () => {
         try {
-            const response = await fetch(`${rootURL}/devices`, {
+            const response = await fetch(`${apiserver_url}/devices`, {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
@@ -180,7 +177,7 @@ const AppId = (props) => {
             // Filter only devices that have either evt or cmd enabled
             const activeMembers = editableMembers.filter(member => member.evt || member.cmd);
             
-            const response = await fetch(`${rootURL}/app-ids/${appId}/updateMembers`, {
+            const response = await fetch(`${apiserver_url}/app-ids/${appId}/updateMembers`, {
                 method: 'PUT',
                 headers: {
                     "Content-Type": "application/json",
@@ -216,7 +213,7 @@ const AppId = (props) => {
         try {
             setSaving(true);
             // The body should be the reviewMembers, not activeMembers from editableMembers
-            const response = await fetch(`${rootURL}/app-ids/${appId}/updateMembers`, {
+            const response = await fetch(`${apiserver_url}/app-ids/${appId}/updateMembers`, {
                 method: 'PUT',
                 headers: {
                     "Content-Type": "application/json",

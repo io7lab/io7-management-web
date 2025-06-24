@@ -15,11 +15,8 @@ import AppId from '../components/AppId'
 import NewAppId from '../components/NewAppId'
 import "../style/AppId.css";
 
-const svr = window.location;
-let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
-
 const AppIds = () => {
-    const { token, logout } = useAuth();
+    const { token, logout, apiserver_url } = useAuth();
     const [appIds, setAppIds] = useState([]);
     const [deleted, setDeleted] = useState(false);
     const [added, setAdded] = useState(false);
@@ -27,7 +24,7 @@ const AppIds = () => {
     const [chosenApp, setChosenApp] = useState(undefined);
 
     useEffect(() => {
-        fetch(rootURL + '/app-ids/', {
+        fetch(apiserver_url + '/app-ids/', {
             method: 'GET',
             headers: { "Authorization": 'Bearer ' + token },
         }).then((response) => {

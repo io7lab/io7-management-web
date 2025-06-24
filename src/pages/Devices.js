@@ -19,14 +19,13 @@ import "../style/Devices.css";
 // it assumes the mqtt and the management console web is on the same hosts.
 // if they are on different hosts, the the following two lines should be modified.
 const svr = window.location;
-const rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
 const ws_protocol = window.runtime.ws_protocol || 'ws://';
 const mqtturl = window.runtime.WS_SERVER_URL  || ws_protocol + svr.hostname + ':9001';
 const mqtt_options = window.runtime.mqtt_options;
 let forRefresh = 0;
 
 const Devices = () => {
-    const { token, logout } = useAuth();
+    const { token, logout, apiserver_url } = useAuth();
     const { mqttClient, mqtt_connect } = useMQTT();
     const [devices, setDevices] = useState([]);
     const [deleted, setDeleted] = useState(false);
@@ -45,7 +44,7 @@ const Devices = () => {
     forRefresh++;
 
     useEffect(() => {
-        fetch(rootURL + '/devices/', {
+        fetch(apiserver_url + '/devices/', {
             method: 'GET',
             headers: { "Authorization": 'Bearer ' + token },
         }).then((response) => {

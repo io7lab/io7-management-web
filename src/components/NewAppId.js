@@ -10,11 +10,8 @@ import InputLabel from '@mui/material/InputLabel';
 import { useAuth } from '../context';
 import '../style/Devices.css';
 
-const svr = window.location;
-let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':2009';
-
 const NewAppId = (props) => {
-    const { token } = useAuth();
+    const { token, apiserver_url } = useAuth();
     const {setChosenApp, setAdded, setNewApp} = props;
     const [restricted, setRestricted] = useState(false);
 
@@ -31,7 +28,7 @@ const NewAppId = (props) => {
         event.preventDefault();
         let pw = getPassword(event.target.password.value);
 
-        fetch(rootURL + '/app-ids/', {
+        fetch(apiserver_url + '/app-ids/', {
             method: 'POST',
             headers: { "Content-Type": "application/json",
                     "Authorization": 'Bearer ' + token },
