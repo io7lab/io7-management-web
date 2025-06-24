@@ -19,9 +19,26 @@ let rootURL = window.runtime.API_URL_ROOT || svr.protocol+'//'+svr.hostname+':20
 const Home = (props) => {
 
     const { token, logout } = useAuth();
-    const [appIds, setAppIds] = useState([]);
-    const [devices, setDevices] = useState([]);
+    const [ dashboard, setDashboard ] = useState([]);
+    const [ appIds, setAppIds ] = useState([]);
+    const [ devices, setDevices] = useState([]);
 
+    useEffect(() => {
+        fetch(rootURL + '/config/dashboard', {
+            method: 'GET',
+            headers: { "Authorization": 'Bearer ' + token },
+        }).then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+        }).then((data) => {
+            setDashboard(data.value);
+        }).catch((err) => {
+            console.log(err);
+        });
+
+    }, []);
+    
     useEffect(() => {
         fetch(rootURL + '/devices/', {
             method: 'GET',
@@ -80,7 +97,7 @@ const Home = (props) => {
             <center>
                 <h1>io7 IOT Device Platform</h1><hr />
                 <iframe
-                    src={window.runtime.dashboard}
+                    src={dashboard}
                     width="80%" height="450" frameBorder="0" />
                 <hr />
 
