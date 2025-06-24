@@ -320,12 +320,12 @@ const AppId = (props) => {
                 </Box> 
                 <Box m={2}>
                     <TextField InputProps={{readOnly: true,}} value={appDesc} label="Description" multiline rows={3}  
-                        style={{width:'390px'}}/>
+                        style={{width: '390px'}}/>
                 </Box>
                 
                 {/* Display members list for restricted app IDs */}
                 {restricted && (
-                    <Box m={2} style={{width:'390px'}}>
+                    <Box m={2} style={{width: '390px'}}>
                         <Typography variant="h6" gutterBottom>
                             Member Devices
                         </Typography>
@@ -602,7 +602,7 @@ const AppId = (props) => {
             </Dialog>
             {/* Fix It button - positioned at the very end */}
             {toFix && (
-                <Box m={2} ml={23} display="flex" justifyContent="flex-end" alignItems="center" gap={2} style={{width:'390px'}}>
+                <Box m={2} ml={23} display="flex" justifyContent="flex-end" alignItems="center" gap={2} style={{width: '390px'}}>
                     <span style={{ color: 'red', fontWeight: 'bold' }}>
                         This App Id needs fixed
                     </span>

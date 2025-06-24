@@ -89,7 +89,7 @@ const NewDevice = (props) => {
     }
     
     return (
-        <div class='new-device-container'>
+        <div className='new-device-container'>
         {setClick2List('side-Devices')}
         <h1>New Device</h1>
         <Box mt={10} display="flex">
@@ -117,7 +117,7 @@ const NewDevice = (props) => {
                     </FormControl>
                 </Box>
                 <Box m={2}>
-                    <TextField id="devDesc" label="Description" multiline rows={3}  style={{width:'100%'}}/>
+                    <TextField id="devDesc" label="Description" multiline rows={3}  style={{width: '100%'}}/>
                 </Box>
                 <Box m={2}>
                     <TextField sx={{ boxShadow: 3 }} id="devMaker" label="Manufacturer" variant="filled" />

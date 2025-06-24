@@ -112,7 +112,7 @@ const NewAppId = (props) => {
                         </FormControl>
                     </Box>
                     <Box m={2}>
-                        <TextField id="appDesc" label="Description" multiline rows={3}  style={{width:'100%'}} />
+                        <TextField id="appDesc" label="Description" multiline rows={3}  style={{width: '100%'}} />
                     </Box>
 
                     <Button variant='contained' type="submit">

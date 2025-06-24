@@ -81,7 +81,7 @@ const Home = (props) => {
                 <h1>io7 IOT Device Platform</h1><hr />
                 <iframe
                     src={window.runtime.dashboard}
-                    width="80%" height="450" frameborder="0" />
+                    width="80%" height="450" frameBorder="0" />
                 <hr />
 
                 <div>

@@ -67,7 +67,7 @@ const Detail = (props) => {
             </Box> 
             
             <Box m={2}>
-                <TextField InputProps={{readOnly: true,}} value={devDesc||''} label="Description" multiline rows={3}  style={{width:'100%'}}/>
+                <TextField InputProps={{readOnly: true,}} value={devDesc||''} label="Description" multiline rows={3}  style={{width: '100%'}}/>
             </Box>
             
             <Box m={2} >
