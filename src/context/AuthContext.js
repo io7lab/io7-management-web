@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const cookies = new Cookies();
 
-    const get_config = (varName, setter, token) => {
+    const get_config = (varName, setter, token, erroraction = null) => {
         fetch(apiserver_url + `/config/${varName}`, {
             method: 'GET',
             headers: { "Authorization": 'Bearer ' + token },
@@ -43,6 +43,9 @@ export const AuthProvider = ({ children }) => {
             setter(data.value);
             cookies.set(varName, data.value);
         }).catch((err) => {
+            if (erroraction) {
+                erroraction()
+            }
             console.log(err);
         });
     };
@@ -98,7 +101,8 @@ export const AuthProvider = ({ children }) => {
         grafana_url,
         dashboard_url,
         influxdb_token,
-        gf_token
+        gf_token,
+        get_config
     };
 
     return (
