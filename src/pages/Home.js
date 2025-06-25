@@ -98,6 +98,7 @@ const Home = (props) => {
         <div style={{ height: '100%', marginLeft: '5%', overflowY: 'hidden' }}>
             <center>
                 <h1>io7 IOT Device Platform</h1>
+                <hr/>
                 <Box sx={{ color: '#1a237e', display: 'flex', gap: 10, justifyContent: 'center' }}>
                     <Tooltip title={nodered_name}><SchemaIcon fontSize='large'
                         onClick={() => launchConsole(nodered_name, nodered_url)} 
