@@ -15,7 +15,9 @@ import { Box, Tooltip } from '@mui/material';
 
 const Home = (props) => {
 
-    const { token, logout, influxdb_url, nodered_url, grafana_url, apiserver_url, dashboard_url} = useAuth();
+    const { token, logout, influxdb_url, nodered_url, grafana_url, apiserver_url, dashboard_url,
+        setGrafana_url, setNodered_url, setInfluxdb_url, get_config, svr } = useAuth();
+
     const [ appIds, setAppIds ] = useState([]);
     const [ devices, setDevices] = useState([]);
     const windowRefs = useRef({});
@@ -40,6 +42,9 @@ const Home = (props) => {
             console.log(err);
         });
 
+        setNodered_url(nodered_url || `${svr.protocol}//${svr.hostname}:1880`);
+        setInfluxdb_url(influxdb_url || `${svr.protocol}//${svr.hostname}:8086`);
+        setGrafana_url(grafana_url || `${svr.protocol}//${svr.hostname}:3003`);
     }, []);
 
     const deviceRows = devices.map((d) => (

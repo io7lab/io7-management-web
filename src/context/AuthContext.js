@@ -92,16 +92,16 @@ export const AuthProvider = ({ children }) => {
     const value = {
         token,
         isAuthenticated,
-        login,
-        logout,
-        nodered_url,
-        influxdb_url,
+        login, logout,
+        nodered_url, setNodered_url,
+        influxdb_url, setInfluxdb_url,
+        grafana_url, setGrafana_url,
         apiserver_url,
-        grafana_url,
         dashboard_url,
         influxdb_token,
         gf_token,
-        get_config
+        get_config,
+        svr
     };
 
     return (

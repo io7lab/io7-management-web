@@ -23,8 +23,8 @@ import {
 import { useAuth } from '../context';
 
 const Settings = (props) => {
-    const { influxdb_url, nodered_url, grafana_url, apiserver_url, logout,
-        dashboard_url, gf_token, influxdb_token, token, get_config } = useAuth();
+    const { nodered_url, grafana_url, influxdb_url, apiserver_url, logout, setGrafana_url, setNodered_url,
+        setInfluxdb_url, dashboard_url, gf_token, influxdb_token, token, get_config, svr } = useAuth();
     
     const [ showGfToken, setShowGfToken ] = useState(false);
     const [ showInfluxToken, setShowInfluxToken ] = useState(false);
@@ -46,6 +46,10 @@ const Settings = (props) => {
             setFieldsets(value);
             setFieldsetsValue(value || '');
         }, token);
+
+        setNodered_url(nodered_url || `${svr.protocol}//${svr.hostname}:1880`);
+        setInfluxdb_url(influxdb_url || `${svr.protocol}//${svr.hostname}:8086`);
+        setGrafana_url(grafana_url || `${svr.protocol}//${svr.hostname}:3003`);
     }, []);
 
     const handleCopy = (text, label) => {
