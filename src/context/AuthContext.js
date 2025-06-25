@@ -22,30 +22,29 @@ export const useAuth = () => {
 // Provider component that wraps the app and makes auth object available to any child component that calls useAuth()
 export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState('');
-    const [nodered_url, setNodered_url] = useState(`${svr.protocol}//${svr.hostname}:1880`);
-    const [influxdb_url, setInfluxdb_url] = useState(`${svr.protocol}//${svr.hostname}:8086`);
-    const [grafana_url, setGrafana_url] = useState(`${svr.protocol}//${svr.hostname}:3003`);
+    const [nodered_url, setNodered_url] = useState();
+    const [influxdb_url, setInfluxdb_url] = useState();
+    const [grafana_url, setGrafana_url] = useState();
     const [dashboard_url, setDashboard_url] = useState('');
     const [influxdb_token, setInfluxDB_token] = useState('');
     const [gf_token, setGf_token] = useState('');
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const cookies = new Cookies();
 
-    const get_config = (varName, setter, token, erroraction = null) => {
+    const get_config = (varName, setter, token) => {
         fetch(apiserver_url + `/config/${varName}`, {
             method: 'GET',
             headers: { "Authorization": 'Bearer ' + token },
         }).then((response) => {
             if (response.ok) {
                 return response.json();
+            } else if (response.status === 400) {
+                logout(); // the token might have been changed so it needs relogin
             }
         }).then((data) => {
             setter(data.value);
             cookies.set(varName, data.value);
         }).catch((err) => {
-            if (erroraction) {
-                erroraction()
-            }
             console.log(err);
         });
     };
@@ -64,9 +63,9 @@ export const AuthProvider = ({ children }) => {
         const storedToken = cookies.get(tokenId);
         if (storedToken) {
             setToken(storedToken);
-            setNodered_url(cookies.get(noderedId));
-            setInfluxdb_url(cookies.get(influxdbId));
-            setGrafana_url(cookies.get(grafanaId));
+            setNodered_url(cookies.get(noderedId) || `${svr.protocol}//${svr.hostname}:1880`);
+            setInfluxdb_url(cookies.get(influxdbId) || `${svr.protocol}//${svr.hostname}:8086`);
+            setGrafana_url(cookies.get(grafanaId) || `${svr.protocol}//${svr.hostname}:3003`);
             setDashboard_url(cookies.get(dashboardId));
             setInfluxDB_token(cookies.get(influxdb_tokenId));
             setGf_token(cookies.get(gf_tokenId));

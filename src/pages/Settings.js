@@ -41,11 +41,11 @@ const Settings = (props) => {
         get_config('monitored_devices', (value) => {
             setMonitored(value);
             setMonitoredValue(value || '');
-        }, token, logout);
+        }, token);
         get_config('monitored_fieldsets', (value) => {
             setFieldsets(value);
             setFieldsetsValue(value || '');
-        }, token, logout);
+        }, token);
     }, []);
 
     const handleCopy = (text, label) => {
@@ -108,8 +108,24 @@ const Settings = (props) => {
 
     const handleSaveFieldsets = () => {
         if (fieldsetsValue !== fieldsets) {
-            setSnackbarMessage(`New monitored fieldsets value: ${fieldsetsValue}`);
-            setSnackbarOpen(true);
+            fetch(apiserver_url + '/config/monitored_fieldsets', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json",
+                        "Authorization": 'Bearer ' + token },
+                body: JSON.stringify({
+                    "fieldsets": fieldsetsValue
+                })
+            }).then((response) => {
+                if (response.status === 200) {
+                    setSnackbarMessage(`New monitored fieldsets value: ${fieldsetsValue}`);
+                    setSnackbarOpen(true);
+                } else if (response.status === 422){
+                    alert('please check the data');
+                    return [];
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
         }
         setFieldsets(fieldsetsValue);
         setIsEditingFieldsets(false);
