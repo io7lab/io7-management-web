@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
     const [nodered_url, setNodered_url] = useState();
     const [influxdb_url, setInfluxdb_url] = useState();
     const [grafana_url, setGrafana_url] = useState();
-    const [dashboard_url, setDashboard_url] = useState('');
+    const [dashboard_url, setDashboard_url] = useState();
     const [influxdb_token, setInfluxDB_token] = useState('');
     const [gf_token, setGf_token] = useState('');
     const [isAuthenticated, setIsAuthenticated] = useState(false);

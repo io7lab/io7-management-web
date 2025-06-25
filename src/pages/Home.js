@@ -20,6 +20,7 @@ const Home = (props) => {
 
     const [ appIds, setAppIds ] = useState([]);
     const [ devices, setDevices] = useState([]);
+    const [ mdashboard, setMDashboard ] = useState();
     const windowRefs = useRef({});
     const nodered_name = 'NodeRed';
     const grafana_name = 'Grafana';
@@ -46,6 +47,12 @@ const Home = (props) => {
         setInfluxdb_url(influxdb_url || `${svr.protocol}//${svr.hostname}:8086`);
         setGrafana_url(grafana_url || `${svr.protocol}//${svr.hostname}:3003`);
     }, []);
+
+    useEffect(() => {
+        if (dashboard_url && grafana_url) {
+            setMDashboard(grafana_url + (new URL(dashboard_url)).pathname);
+        }
+    }, [dashboard_url]);
 
     const deviceRows = devices.map((d) => (
         {
@@ -124,7 +131,7 @@ const Home = (props) => {
                 </Box>
                 <hr/>
                 <iframe
-                    src={dashboard_url}
+                    src={mdashboard}
                     width="80%" height="450" frameBorder="0" />
                 <hr />
 
