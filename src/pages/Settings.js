@@ -60,14 +60,49 @@ const Settings = (props) => {
     }, [dashboard_url]);
 
     const handleCopy = (text, label) => {
-        navigator.clipboard.writeText(text || '').then(() => {
-            setSnackbarMessage(`${label} copied to clipboard`);
+        // Check if clipboard API is available
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text || '').then(() => {
+                setSnackbarMessage(`${label} copied to clipboard`);
+                setSnackbarOpen(true);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                fallbackCopyTextToClipboard(text, label);
+            });
+        } else {
+            fallbackCopyTextToClipboard(text, label);
+        }
+    };
+
+    const fallbackCopyTextToClipboard = (text, label) => {
+        try {
+            const textArea = document.createElement('textarea');
+            textArea.value = text || '';
+            
+            // Make the textarea out of viewport
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            
+            // Select and copy
+            textArea.focus();
+            textArea.select();
+            
+            const successful = document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            if (successful) {
+                setSnackbarMessage(`${label} copied to clipboard`);
+            } else {
+                setSnackbarMessage('Failed to copy to clipboard - please copy manually');
+            }
             setSnackbarOpen(true);
-        }).catch(err => {
-            console.error('Failed to copy: ', err);
-            setSnackbarMessage('Failed to copy to clipboard');
+        } catch (err) {
+            console.error('Fallback copy failed:', err);
+            setSnackbarMessage('Failed to copy to clipboard - please copy manually');
             setSnackbarOpen(true);
-        });
+        }
     };
 
     const handleCloseSnackbar = () => {
