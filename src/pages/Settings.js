@@ -36,6 +36,7 @@ const Settings = (props) => {
     const [ monitoredValue, setMonitoredValue ] = useState('');
     const [ isEditingFieldsets, setIsEditingFieldsets ] = useState(false);
     const [ fieldsetsValue, setFieldsetsValue ] = useState('');
+    const [ mdashboard, setMDashboard ] = useState();
 
     useEffect(() => {
         get_config('monitored_devices', (value) => {
@@ -51,6 +52,12 @@ const Settings = (props) => {
         setInfluxdb_url(influxdb_url || `${svr.protocol}//${svr.hostname}:8086`);
         setGrafana_url(grafana_url || `${svr.protocol}//${svr.hostname}:3003`);
     }, []);
+
+    useEffect(() => {
+        if (dashboard_url && grafana_url) {
+            setMDashboard(grafana_url + (new URL(dashboard_url)).pathname);
+        }
+    }, [dashboard_url]);
 
     const handleCopy = (text, label) => {
         navigator.clipboard.writeText(text || '').then(() => {
@@ -156,7 +163,7 @@ const Settings = (props) => {
         { label: 'Node-RED URL', value: nodered_url, isToken: false },
         { label: 'Grafana URL', value: grafana_url, isToken: false },
         { label: 'API Server URL', value: apiserver_url, isToken: false },
-        { label: 'Dashboard URL', value: dashboard_url, isToken: false },
+        { label: 'Dashboard URL', value: mdashboard, isToken: false },
         { label: 'Grafana Token', value: gf_token, isToken: true, show: showGfToken, setShow: setShowGfToken },
         { label: 'InfluxDB Token', value: influxdb_token, isToken: true, show: showInfluxToken, setShow: setShowInfluxToken },
         { 
