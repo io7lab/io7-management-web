@@ -226,7 +226,6 @@ const AppId = (props) => {
                 throw new Error(`Failed to save members: ${response.status}`);
             }
 
-            alert('Members saved successfully');
             await fetchMembers();
             setIsEditing(false);
             setSearchText('');
