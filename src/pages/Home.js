@@ -132,7 +132,7 @@ const Home = (props) => {
                 <hr/>
                 <iframe
                     src={mdashboard}
-                    width="80%" height="450" frameBorder="0" />
+                    width="85%" height="450" frameBorder="0" />
                 <hr />
 
                 <div>
