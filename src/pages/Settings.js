@@ -125,17 +125,19 @@ const Settings = (props) => {
                 })
             }).then((response) => {
                 if (response.status === 200) {
-                    setSnackbarMessage(`New monitored devices value: ${monitoredValue}`);
-                    setSnackbarOpen(true);
+                    return response.json();
                 } else if (response.status === 422){
                     alert('please check the data');
                     return [];
                 }
+            }).then((data) => {
+                setMonitored(data.monitored);
+                setSnackbarMessage(`New monitored devices value: ${data.monitored}`);
+                setSnackbarOpen(true);
             }).catch((err) => {
                 console.log(err);
             });
         }
-        setMonitored(monitoredValue);
         setIsEditingMonitored(false);
     };
 
@@ -163,17 +165,19 @@ const Settings = (props) => {
                 })
             }).then((response) => {
                 if (response.status === 200) {
-                    setSnackbarMessage(`New monitored fieldsets value: ${fieldsetsValue}`);
-                    setSnackbarOpen(true);
+                    return response.json()
                 } else if (response.status === 422){
                     alert('please check the data');
                     return [];
                 }
+            }).then((data) => {
+                setFieldsets(data.newSets);
+                setSnackbarMessage(`New monitored fieldsets value: ${data.newSets}`);
+                setSnackbarOpen(true);
             }).catch((err) => {
                 console.log(err);
             });
         }
-        setFieldsets(fieldsetsValue);
         setIsEditingFieldsets(false);
     };
 
