@@ -141,9 +141,9 @@ const Home = (props) => {
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell><b>App Id</b></TableCell>
-                                    <TableCell><b>Description</b></TableCell>
-                                    <TableCell><b>Created Date</b></TableCell>
+                                    <TableCell sx={{ width: '20%' }}><b>App Id</b></TableCell>
+                                    <TableCell sx={{ width: '60%' }}><b>Description</b></TableCell>
+                                    <TableCell sx={{ width: '20%' }}><b>Created Date</b></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -167,10 +167,10 @@ const Home = (props) => {
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell><b>Device Id</b></TableCell>
-                                    <TableCell><b>Description</b></TableCell>
-                                    <TableCell><b>Device Type</b></TableCell>
-                                    <TableCell><b>Created Date</b></TableCell>
+                                    <TableCell sx={{ width: '20%' }}><b>Device Id</b></TableCell>
+                                    <TableCell sx={{ width: '40%' }}><b>Description</b></TableCell>
+                                    <TableCell sx={{ width: '20%' }}><b>Device Type</b></TableCell>
+                                    <TableCell sx={{ width: '20%' }}><b>Created Date</b></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
